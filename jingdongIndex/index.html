@@ -1,0 +1,2488 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>京东首页</title>
+<link href="css/style.css" rel="stylesheet" type="text/css">
+<link href="css/index.css" rel="stylesheet" type="text/css">
+<script src="js/hxsd_tools.js"></script>
+<script>
+window.onload=function(){
+	var oListNav=document.getElementsByClassName('list_nav')[0];
+	var oUl=oListNav.children[0];
+	var aLi=oUl.children;
+	var oPopup=document.getElementsByClassName('popup')[0];
+	var aSection=document.getElementsByClassName('section1');
+	var timer1;
+	var timer2;
+		for(var i=0;i<aLi.length;i++){
+			aLi[i].index=i;
+			aLi[i].onmouseover=function(){
+				var _this=this;
+				timer1=setTimeout(function(){
+					oPopup.style.display='block';
+					for(var j=0;j<aSection.length;j++){
+						aSection[j].style.display='none';
+						console.log(j)
+					}
+					aSection[_this.index].style.display='block';
+					console.log(_this.index)
+				},100)
+				
+			};
+			function run(){
+				timer2=setTimeout(function(){
+					oPopup.style.display='none';	
+				},100)
+			};
+			 
+			aLi[i].onmouseout=function(){
+				run();
+			};
+			oPopup.onmouseover=function(){
+				clearTimeout(timer2)
+			}
+			oPopup.onmouseout=function(){
+				run();
+			}
+		};
+	//-----------banner轮播图------------------
+	var oBanner=document.getElementById('banner_one');
+	var oUl1=oBanner.getElementsByTagName('ul')[0];
+	var aBtn=oBanner.getElementsByTagName('ol')[0].children;
+	var aLi=oUl1.children;
+	var li_w=aLi[1].offsetWidth;
+	//alert(li_w)
+	var timer;
+	
+	oUl1.style.width=li_w*aLi.length+'px';
+	console.log(oUl1.style.width);
+	function ac(n){								//------btn类名切换
+		for(var q=0;q<aBtn.length;q++){
+			aBtn[q].className='';
+		}
+		aBtn[n].className='ac';	
+	};
+	
+	function run3(san){
+		for(var i=0;i<san;i++){
+			aBtn[i].index=i;
+			aBtn[i].onclick=function(){
+				for(var j=0;j<san;j++){
+					aBtn[j].className='';
+				};
+				this.className='ac';
+				hxsd_tools.move(oUl1,{"left":-li_w*this.index});
+			};
+		};		
+	};
+	run3(aBtn.length);
+	var prevBtn=oBanner.children[2];
+	var nextBtn=oBanner.children[3];
+	var iNow=0;
+	console.log(typeof prevBtn);
+	prevBtn.onclick=function(){
+		clearTimeout(timer);
+		iNow--;
+		if(iNow<0){iNow=0}
+		ac(iNow);
+		hxsd_tools.move(oUl1,{"left":-li_w*iNow},null,500);
+	};
+	
+	nextBtn.onclick=function(){
+		clearTimeout(timer);
+		iNow++;
+		if(iNow>aLi.length-1){iNow=aLi.length-1}
+		ac(iNow);
+		hxsd_tools.move(oUl1,{"left":-li_w*iNow},null,500)	
+		console.log(iNow)
+	};
+	//自动播放-----------------------
+	function run2(){
+		var i=0;
+		var n=0;
+		var flag=true;
+		timer=setInterval(function(){
+			n++;
+			for(var m=0;m<aBtn.length;m++){
+				aBtn[m].className='';
+			}
+			if(n>aBtn.length-1){
+				n=0;
+			}
+			i+=li_w;
+			if(i>=li_w*aLi.length){
+				i=0;
+			};
+			console.log(i);
+			aBtn[n].className='ac';
+			hxsd_tools.move(oUl1,{"left":-i});
+		},1500);
+	}
+	run2();
+	
+	for(var i=0;i<aLi.length;i++){
+		aLi[i].onmouseover=function(){
+			clearInterval(timer);
+		};
+		aLi[i].onmouseout=function(){
+			run2();	
+		}
+	};
+	//---------------------------------
+}
+</script>
+</head>
+
+<body>
+<div class="header">
+	<div class="h_top clearfix">
+    	<div class="inner">
+        	<div class="map">送至：北京<a href="javascript:;"><i>◇</i></a></div>
+            <ul>
+            	<li><a href="javascript:;" class="first">你好，请登录</a><a href="javascript:;" class="red">免费注册</a></li>
+                <li class="line"></li>
+            	<li><a href="javascript:;">我的订单</a></li>
+                <li class="line"></li>
+            	<li class="bg"><a href="javascript:;">我的京东<i>◇</i></a></li>
+                <li class="line"></li>
+            	<li><a href="javascript:;">京东会员</a></li>
+                <li class="line"></li>
+            	<li><a href="javascript:;">企业采购</a></li>
+                <li class="line"></li>
+            	<li class="bg"><a href="javascript:;"><span></span>手机京东<i>◇</i></a></li>
+                <li class="line"></li>
+            	<li class="bg"><a href="javascript:;">关注京东<i>◇</i></a></li>
+                <li class="line"></li>
+            	<li class="bg"><a href="javascript:;">客户服务<i>◇</i></a></li>
+                <li class="line"></li>
+            	<li class="bg"><a href="javascript:;">网站导航<i>◇</i></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="h_mid clearfix">
+        <div class="logo"><a href="javascript:;"><img src="images/logo-201305.png"></a></div>
+        <div class="search">
+        	<form>
+            	<input type="text" value="卡通手机壳" class="kuang"><input type="submit" value="搜索" class="sub">
+            </form>
+            <div class="tags">
+            <a href="javascript:;" class="one">七夕礼品</a><a href="javascript:;">消暑神器</a><a href="javascript:;">农用物资</a><a href="javascript:;">鲜花99元</a><a href="javascript:;">电影票券</a><a href="javascript:;">防晒喷雾</a><a href="javascript:;">永生花</a><a href="javascript:;">小米电脑</a><a href="javascript:;">thinkpa</a>
+            </div>
+        </div>
+        <div class="buy">
+        	<a href="javascript:;">我的购物车</a>
+            <i>></i>
+            <div class="number">0</div>
+        </div>
+    </div>
+    <div class="h_bot clearfix">
+    	<div class="fenlei">全部商品分类</div>
+        <ul>
+        	<li><a href="javascript:;">服装城</a></li>
+        	<li><a href="javascript:;">美妆馆</a></li>
+        	<li><a href="javascript:;">京东超市</a></li>
+        	<li><a href="javascript:;">生鲜</a></li>
+        	<li><a href="javascript:;">全球购</a></li>
+        	<li><a href="javascript:;">闪购</a></li>
+        	<li><a href="javascript:;">团购</a></li>
+        	<li><a href="javascript:;">拍卖</a></li>
+        	<li><a href="javascript:;">金融</a></li>
+        </ul>
+    </div>
+</div>
+<div class="page1">
+	<div class="inner">
+        <div class="page_top clearfix">
+            <div class="wrap">
+            	<div class="list_nav">
+                <ul>
+                    <li><h3><a href="javascript:;">家用电器</a></h3><i>></i></li>
+                    <li><h3><a href="javascript:;">手机</a>、<a href="javascript:;">数码</a>、<a href="javascript:;">京东通信</a></h3><i>></i></li>
+                    <li><h3><a href="javascript:;">电脑</a>、<a href="javascript:;">办公</a></h3><i>></i></li>
+                    <li><h3><a href="javascript:;">家用电器</a></h3><i>></i></li>
+                    <li><h3><a href="javascript:;">家用电器</a></h3><i>></i></li>
+                    <li><h3><a href="javascript:;">个护化妆</a>、<a href="javascript:;">清洁用品</a>、<a href="javascript:;">宠物</a></h3><i>></i></li>
+                    <li><h3><a href="javascript:;">家用电器</a></h3><i>></i></li>
+                    <li><h3><a href="javascript:;">家用电器</a></h3><i>></i></li>
+                    <li><h3><a href="javascript:;">家用电器</a></h3><i>></i></li>
+                    <li><h3><a href="javascript:;">家用电器</a></h3><i>></i></li>
+                    <li><h3><a href="javascript:;">家用电器</a></h3><i>></i></li>
+                    <li><h3><a href="javascript:;">家用电器</a></h3><i>></i></li>
+                    <li><h3><a href="javascript:;">家用电器</a></h3><i>></i></li>
+                    <li><h3><a href="javascript:;">家用电器</a></h3><i>></i></li>
+                    <li><h3><a href="javascript:;">家用电器</a></h3><i>></i></li>
+                </ul>
+            </div>
+            	<div class="popup">
+                	<div class="section1 clearfix">
+                        <div class="left">
+                        	<div class="brand">
+                            	<a href="javascript:;">家电狂欢<i>></i></a>
+                            	<a href="javascript:;">品牌日<i>></i></a>
+                            	<a href="javascript:;">家电城<i>></i></a>
+                            	<a href="javascript:;">智能生活馆<i>></i></a>
+                            	<a href="javascript:;">京东净化馆<i>></i></a>
+                            	<a href="javascript:;">京东帮服务店<i>></i></a>
+                            	<a href="javascript:;">家电众筹馆<i>></i></a>
+                            </div>
+                            <div class="menu">
+                            	<dl>
+                                	<dt><a href="javascript:;">大家电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">平板电脑</a><a href="javascript:;">空调</a><a href="javascript:;">冰箱</a><a href="javascript:;">洗衣机</a><a href="javascript:;">家庭影院</a><a href="javascript:;">DVD</a><a href="javascript:;">迷你音响</a><a href="javascript:;">冷柜/冰吧</a><a href="javascript:;">酒柜</a><a href="javascript:;">家电配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨卫大电<i>></i></a></dt>
+                                    <dd><a href="javascript:;">油烟机</a><a href="javascript:;">燃气灶</a><a href="javascript:;">烟灶套装</a><a href="javascript:;">消毒柜</a><a href="javascript:;">洗碗机</a><a href="javascript:;">电热水器</a><a href="javascript:;">燃气热水器</a><a href="javascript:;">嵌入式厨电</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨房小电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">电饭煲</a><a href="javascript:;">微波炉</a><a href="javascript:;">电烤箱</a><a href="javascript:;">电磁炉</a><a href="javascript:;">电压力锅</a><a href="javascript:;">豆浆机</a><a href="javascript:;">咖啡机</a><a href="javascript:;">面包机</a><a href="javascript:;">榨汁机</a><a href="javascript:;">料理机</a><a href="javascript:;">电饼铛</a><a href="javascript:;">养生壶/煎药壶</a><a href="javascript:;">酸奶机</a><a href="javascript:;">煮蛋器</a><a href="javascript:;">电水壶/热水瓶</a><a href="javascript:;">电炖锅</a><a href="javascript:;">多用途锅</a><a href="javascript:;">电烧烤炉</a><a href="javascript:;">电热饭盒</a><a href="javascript:;">其它厨房电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">生活电器<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电风扇</a><a href="javascript:;">冷风扇</a><a href="javascript:;">吸尘器</a><a href="javascript:;">净化器</a><a href="javascript:;">扫地机器人</a><a href="javascript:;">加湿器</a><a href="javascript:;">挂烫机/熨斗</a><a href="javascript:;">取暖电器</a><a href="javascript:;">插座</a><a href="javascript:;">电话机</a><a href="javascript:;">净水器</a><a href="javascript:;">饮水机</a><a href="javascript:;">除湿机</a><a href="javascript:;">干衣机</a><a href="javascript:;">清洁机</a><a href="javascript:;">收录/音机</a><a href="javascript:;">其它生活电器</a><a href="javascript:;">生活电器配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">个护健康<i>></i></a></dt>
+                                    <dd><a href="javascript:;">剃须刀</a><a href="javascript:;">口腔护理</a><a href="javascript:;">电吹风</a><a href="javascript:;">美容器</a><a href="javascript:;">卷/直发器</a><a href="javascript:;">理发器</a><a href="javascript:;">剃/脱毛器</a><a href="javascript:;">足浴盆</a><a href="javascript:;">健康秤/厨房秤</a><a href="javascript:;">按摩器</a><a href="javascript:;">按摩椅</a><a href="javascript:;">血压计</a><a href="javascript:;">血糖仪</a><a href="javascript:;">体温计</a><a href="javascript:;">计步器/脂肪检测仪</a><a href="javascript:;">其它健康电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">五金家装<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电动工具</a><a href="javascript:;">手动工具</a><a href="javascript:;">仪器仪表</a><a href="javascript:;">浴霸/排气扇</a><a href="javascript:;">灯具</a><a href="javascript:;">LED灯</a><a href="javascript:;">洁身器</a><a href="javascript:;">水槽</a><a href="javascript:;">水槽</a><a href="javascript:;">龙头</a><a href="javascript:;">淋浴花洒</a><a href="javascript:;">厨卫五金</a><a href="javascript:;">家具五金</a><a href="javascript:;">门铃</a><a href="javascript:;">电气开关</a><a href="javascript:;">插座</a><a href="javascript:;">电工电料</a><a href="javascript:;">监控安防</a><a href="javascript:;">电线/线缆</a></dd>
+                              	</dl>
+                            </div>
+                        </div>
+                        <div class="right">
+                        	<div class="show">
+                            	<ul class="clearfix">
+                                	<li><a href="javascript:;"><img src="images/shou-icon_03.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_05.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_09.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_10.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_11.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_13.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_15.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_16.jpg"></a></li>
+                                </ul>
+                                <div class="mid-icon">
+                                    <a href="javascript:;"><img src="images/577f019cN4ea29161.jpg"></a>
+                                    <a href="javascript:;"><img src="images/shou-icon_19.jpg"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section1 clearfix">
+                        <div class="left">
+                        	<div class="brand">
+                            	<a href="javascript:;">家电狂欢<i>></i></a>
+                            	<a href="javascript:;">品牌日<i>></i></a>
+                            	<a href="javascript:;">家电城<i>></i></a>
+                            	<a href="javascript:;">智能生活馆<i>></i></a>
+                            	<a href="javascript:;">京东净化馆<i>></i></a>
+                            	<a href="javascript:;">京东帮服务店<i>></i></a>
+                            </div>
+                            <div class="menu">
+                            	<dl>
+                                	<dt><a href="javascript:;">大家电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">平板电脑</a><a href="javascript:;">空调</a><a href="javascript:;">冰箱</a><a href="javascript:;">洗衣机</a><a href="javascript:;">家庭影院</a><a href="javascript:;">DVD</a><a href="javascript:;">迷你音响</a><a href="javascript:;">冷柜/冰吧</a><a href="javascript:;">酒柜</a><a href="javascript:;">家电配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨卫大电<i>></i></a></dt>
+                                    <dd><a href="javascript:;">油烟机</a><a href="javascript:;">燃气灶</a><a href="javascript:;">烟灶套装</a><a href="javascript:;">消毒柜</a><a href="javascript:;">洗碗机</a><a href="javascript:;">电热水器</a><a href="javascript:;">燃气热水器</a><a href="javascript:;">嵌入式厨电</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨房小电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">电饭煲</a><a href="javascript:;">微波炉</a><a href="javascript:;">电烤箱</a><a href="javascript:;">电磁炉</a><a href="javascript:;">电压力锅</a><a href="javascript:;">豆浆机</a><a href="javascript:;">咖啡机</a><a href="javascript:;">面包机</a><a href="javascript:;">榨汁机</a><a href="javascript:;">料理机</a><a href="javascript:;">电饼铛</a><a href="javascript:;">养生壶/煎药壶</a><a href="javascript:;">酸奶机</a><a href="javascript:;">煮蛋器</a><a href="javascript:;">电水壶/热水瓶</a><a href="javascript:;">电炖锅</a><a href="javascript:;">多用途锅</a><a href="javascript:;">电烧烤炉</a><a href="javascript:;">电热饭盒</a><a href="javascript:;">其它厨房电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">生活电器<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电风扇</a><a href="javascript:;">冷风扇</a><a href="javascript:;">吸尘器</a><a href="javascript:;">净化器</a><a href="javascript:;">扫地机器人</a><a href="javascript:;">加湿器</a><a href="javascript:;">挂烫机/熨斗</a><a href="javascript:;">取暖电器</a><a href="javascript:;">插座</a><a href="javascript:;">电话机</a><a href="javascript:;">净水器</a><a href="javascript:;">饮水机</a><a href="javascript:;">除湿机</a><a href="javascript:;">干衣机</a><a href="javascript:;">清洁机</a><a href="javascript:;">收录/音机</a><a href="javascript:;">其它生活电器</a><a href="javascript:;">生活电器配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">个护健康<i>></i></a></dt>
+                                    <dd><a href="javascript:;">剃须刀</a><a href="javascript:;">口腔护理</a><a href="javascript:;">电吹风</a><a href="javascript:;">美容器</a><a href="javascript:;">卷/直发器</a><a href="javascript:;">理发器</a><a href="javascript:;">剃/脱毛器</a><a href="javascript:;">足浴盆</a><a href="javascript:;">健康秤/厨房秤</a><a href="javascript:;">按摩器</a><a href="javascript:;">按摩椅</a><a href="javascript:;">血压计</a><a href="javascript:;">血糖仪</a><a href="javascript:;">体温计</a><a href="javascript:;">计步器/脂肪检测仪</a><a href="javascript:;">其它健康电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">五金家装<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电动工具</a><a href="javascript:;">手动工具</a><a href="javascript:;">仪器仪表</a><a href="javascript:;">浴霸/排气扇</a><a href="javascript:;">灯具</a><a href="javascript:;">LED灯</a><a href="javascript:;">洁身器</a><a href="javascript:;">水槽</a><a href="javascript:;">水槽</a><a href="javascript:;">龙头</a><a href="javascript:;">淋浴花洒</a><a href="javascript:;">厨卫五金</a><a href="javascript:;">家具五金</a><a href="javascript:;">门铃</a><a href="javascript:;">电气开关</a><a href="javascript:;">插座</a><a href="javascript:;">电工电料</a><a href="javascript:;">监控安防</a><a href="javascript:;">电线/线缆</a></dd>
+                              	</dl>
+                            </div>
+                        </div>
+                        <div class="right">
+                        	<div class="show">
+                            	<ul class="clearfix">
+                                	<li><a href="javascript:;"><img src="images/shou-icon_03.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_05.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_09.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_10.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_11.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_13.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_15.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_16.jpg"></a></li>
+                                </ul>
+                                <div class="mid-icon">
+                                    <a href="javascript:;"><img src="images/577f019cN4ea29161.jpg"></a>
+                                    <a href="javascript:;"><img src="images/shou-icon_19.jpg"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section1 clearfix">
+                        <div class="left">
+                        	<div class="brand">
+                            	<a href="javascript:;">家电狂欢<i>></i></a>
+                            	<a href="javascript:;">品牌日<i>></i></a>
+                            	<a href="javascript:;">家电城<i>></i></a>
+                            	<a href="javascript:;">智能生活馆<i>></i></a>
+                            	<a href="javascript:;">京东净化馆<i>></i></a>
+                            	<a href="javascript:;">京东帮服务店<i>></i></a>
+                            </div>
+                            <div class="menu">
+                            	<dl>
+                                	<dt><a href="javascript:;">大家电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">平板电脑</a><a href="javascript:;">空调</a><a href="javascript:;">冰箱</a><a href="javascript:;">洗衣机</a><a href="javascript:;">家庭影院</a><a href="javascript:;">DVD</a><a href="javascript:;">迷你音响</a><a href="javascript:;">冷柜/冰吧</a><a href="javascript:;">酒柜</a><a href="javascript:;">家电配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨卫大电<i>></i></a></dt>
+                                    <dd><a href="javascript:;">油烟机</a><a href="javascript:;">燃气灶</a><a href="javascript:;">烟灶套装</a><a href="javascript:;">消毒柜</a><a href="javascript:;">洗碗机</a><a href="javascript:;">电热水器</a><a href="javascript:;">燃气热水器</a><a href="javascript:;">嵌入式厨电</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨房小电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">电饭煲</a><a href="javascript:;">微波炉</a><a href="javascript:;">电烤箱</a><a href="javascript:;">电磁炉</a><a href="javascript:;">电压力锅</a><a href="javascript:;">豆浆机</a><a href="javascript:;">咖啡机</a><a href="javascript:;">面包机</a><a href="javascript:;">榨汁机</a><a href="javascript:;">料理机</a><a href="javascript:;">电饼铛</a><a href="javascript:;">养生壶/煎药壶</a><a href="javascript:;">酸奶机</a><a href="javascript:;">煮蛋器</a><a href="javascript:;">电水壶/热水瓶</a><a href="javascript:;">电炖锅</a><a href="javascript:;">多用途锅</a><a href="javascript:;">电烧烤炉</a><a href="javascript:;">电热饭盒</a><a href="javascript:;">其它厨房电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">生活电器<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电风扇</a><a href="javascript:;">冷风扇</a><a href="javascript:;">吸尘器</a><a href="javascript:;">净化器</a><a href="javascript:;">扫地机器人</a><a href="javascript:;">加湿器</a><a href="javascript:;">挂烫机/熨斗</a><a href="javascript:;">取暖电器</a><a href="javascript:;">插座</a><a href="javascript:;">电话机</a><a href="javascript:;">净水器</a><a href="javascript:;">饮水机</a><a href="javascript:;">除湿机</a><a href="javascript:;">干衣机</a><a href="javascript:;">清洁机</a><a href="javascript:;">收录/音机</a><a href="javascript:;">其它生活电器</a><a href="javascript:;">生活电器配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">个护健康<i>></i></a></dt>
+                                    <dd><a href="javascript:;">剃须刀</a><a href="javascript:;">口腔护理</a><a href="javascript:;">电吹风</a><a href="javascript:;">美容器</a><a href="javascript:;">卷/直发器</a><a href="javascript:;">理发器</a><a href="javascript:;">剃/脱毛器</a><a href="javascript:;">足浴盆</a><a href="javascript:;">健康秤/厨房秤</a><a href="javascript:;">按摩器</a><a href="javascript:;">按摩椅</a><a href="javascript:;">血压计</a><a href="javascript:;">血糖仪</a><a href="javascript:;">体温计</a><a href="javascript:;">计步器/脂肪检测仪</a><a href="javascript:;">其它健康电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">五金家装<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电动工具</a><a href="javascript:;">手动工具</a><a href="javascript:;">仪器仪表</a><a href="javascript:;">浴霸/排气扇</a><a href="javascript:;">灯具</a><a href="javascript:;">LED灯</a><a href="javascript:;">洁身器</a><a href="javascript:;">水槽</a><a href="javascript:;">水槽</a><a href="javascript:;">龙头</a><a href="javascript:;">淋浴花洒</a><a href="javascript:;">厨卫五金</a><a href="javascript:;">家具五金</a><a href="javascript:;">门铃</a><a href="javascript:;">电气开关</a><a href="javascript:;">插座</a><a href="javascript:;">电工电料</a><a href="javascript:;">监控安防</a><a href="javascript:;">电线/线缆</a></dd>
+                              	</dl>
+                            </div>
+                        </div>
+                        <div class="right">
+                        	<div class="show">
+                            	<ul class="clearfix">
+                                	<li><a href="javascript:;"><img src="images/shou-icon_03.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_05.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_09.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_10.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_11.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_13.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_15.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_16.jpg"></a></li>
+                                </ul>
+                                <div class="mid-icon">
+                                    <a href="javascript:;"><img src="images/577f019cN4ea29161.jpg"></a>
+                                    <a href="javascript:;"><img src="images/shou-icon_19.jpg"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section1 clearfix">
+                        <div class="left">
+                        	<div class="brand">
+                            	<a href="javascript:;">家电狂欢<i>></i></a>
+                            	<a href="javascript:;">品牌日<i>></i></a>
+                            	<a href="javascript:;">家电城<i>></i></a>
+                            	<a href="javascript:;">智能生活馆<i>></i></a>
+                            	<a href="javascript:;">京东净化馆<i>></i></a>
+                            	<a href="javascript:;">京东帮服务店<i>></i></a>
+                            </div>
+                            <div class="menu">
+                            	<dl>
+                                	<dt><a href="javascript:;">大家电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">平板电脑</a><a href="javascript:;">空调</a><a href="javascript:;">冰箱</a><a href="javascript:;">洗衣机</a><a href="javascript:;">家庭影院</a><a href="javascript:;">DVD</a><a href="javascript:;">迷你音响</a><a href="javascript:;">冷柜/冰吧</a><a href="javascript:;">酒柜</a><a href="javascript:;">家电配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨卫大电<i>></i></a></dt>
+                                    <dd><a href="javascript:;">油烟机</a><a href="javascript:;">燃气灶</a><a href="javascript:;">烟灶套装</a><a href="javascript:;">消毒柜</a><a href="javascript:;">洗碗机</a><a href="javascript:;">电热水器</a><a href="javascript:;">燃气热水器</a><a href="javascript:;">嵌入式厨电</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨房小电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">电饭煲</a><a href="javascript:;">微波炉</a><a href="javascript:;">电烤箱</a><a href="javascript:;">电磁炉</a><a href="javascript:;">电压力锅</a><a href="javascript:;">豆浆机</a><a href="javascript:;">咖啡机</a><a href="javascript:;">面包机</a><a href="javascript:;">榨汁机</a><a href="javascript:;">料理机</a><a href="javascript:;">电饼铛</a><a href="javascript:;">养生壶/煎药壶</a><a href="javascript:;">酸奶机</a><a href="javascript:;">煮蛋器</a><a href="javascript:;">电水壶/热水瓶</a><a href="javascript:;">电炖锅</a><a href="javascript:;">多用途锅</a><a href="javascript:;">电烧烤炉</a><a href="javascript:;">电热饭盒</a><a href="javascript:;">其它厨房电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">生活电器<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电风扇</a><a href="javascript:;">冷风扇</a><a href="javascript:;">吸尘器</a><a href="javascript:;">净化器</a><a href="javascript:;">扫地机器人</a><a href="javascript:;">加湿器</a><a href="javascript:;">挂烫机/熨斗</a><a href="javascript:;">取暖电器</a><a href="javascript:;">插座</a><a href="javascript:;">电话机</a><a href="javascript:;">净水器</a><a href="javascript:;">饮水机</a><a href="javascript:;">除湿机</a><a href="javascript:;">干衣机</a><a href="javascript:;">清洁机</a><a href="javascript:;">收录/音机</a><a href="javascript:;">其它生活电器</a><a href="javascript:;">生活电器配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">个护健康<i>></i></a></dt>
+                                    <dd><a href="javascript:;">剃须刀</a><a href="javascript:;">口腔护理</a><a href="javascript:;">电吹风</a><a href="javascript:;">美容器</a><a href="javascript:;">卷/直发器</a><a href="javascript:;">理发器</a><a href="javascript:;">剃/脱毛器</a><a href="javascript:;">足浴盆</a><a href="javascript:;">健康秤/厨房秤</a><a href="javascript:;">按摩器</a><a href="javascript:;">按摩椅</a><a href="javascript:;">血压计</a><a href="javascript:;">血糖仪</a><a href="javascript:;">体温计</a><a href="javascript:;">计步器/脂肪检测仪</a><a href="javascript:;">其它健康电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">五金家装<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电动工具</a><a href="javascript:;">手动工具</a><a href="javascript:;">仪器仪表</a><a href="javascript:;">浴霸/排气扇</a><a href="javascript:;">灯具</a><a href="javascript:;">LED灯</a><a href="javascript:;">洁身器</a><a href="javascript:;">水槽</a><a href="javascript:;">水槽</a><a href="javascript:;">龙头</a><a href="javascript:;">淋浴花洒</a><a href="javascript:;">厨卫五金</a><a href="javascript:;">家具五金</a><a href="javascript:;">门铃</a><a href="javascript:;">电气开关</a><a href="javascript:;">插座</a><a href="javascript:;">电工电料</a><a href="javascript:;">监控安防</a><a href="javascript:;">电线/线缆</a></dd>
+                              	</dl>
+                            </div>
+                        </div>
+                        <div class="right">
+                        	<div class="show">
+                            	<ul class="clearfix">
+                                	<li><a href="javascript:;"><img src="images/shou-icon_03.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_05.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_09.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_10.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_11.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_13.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_15.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_16.jpg"></a></li>
+                                </ul>
+                                <div class="mid-icon">
+                                    <a href="javascript:;"><img src="images/577f019cN4ea29161.jpg"></a>
+                                    <a href="javascript:;"><img src="images/shou-icon_19.jpg"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                	<div class="section1 clearfix">
+                        <div class="left">
+                        	<div class="brand">
+                            	<a href="javascript:;">家电狂欢<i>></i></a>
+                            	<a href="javascript:;">品牌日<i>></i></a>
+                            	<a href="javascript:;">家电城<i>></i></a>
+                            	<a href="javascript:;">智能生活馆<i>></i></a>
+                            	<a href="javascript:;">京东净化馆<i>></i></a>
+                            	<a href="javascript:;">京东帮服务店<i>></i></a>
+                            	<a href="javascript:;">家电众筹馆<i>></i></a>
+                            </div>
+                            <div class="menu">
+                            	<dl>
+                                	<dt><a href="javascript:;">大家电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">平板电脑</a><a href="javascript:;">空调</a><a href="javascript:;">冰箱</a><a href="javascript:;">洗衣机</a><a href="javascript:;">家庭影院</a><a href="javascript:;">DVD</a><a href="javascript:;">迷你音响</a><a href="javascript:;">冷柜/冰吧</a><a href="javascript:;">酒柜</a><a href="javascript:;">家电配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨卫大电<i>></i></a></dt>
+                                    <dd><a href="javascript:;">油烟机</a><a href="javascript:;">燃气灶</a><a href="javascript:;">烟灶套装</a><a href="javascript:;">消毒柜</a><a href="javascript:;">洗碗机</a><a href="javascript:;">电热水器</a><a href="javascript:;">燃气热水器</a><a href="javascript:;">嵌入式厨电</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨房小电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">电饭煲</a><a href="javascript:;">微波炉</a><a href="javascript:;">电烤箱</a><a href="javascript:;">电磁炉</a><a href="javascript:;">电压力锅</a><a href="javascript:;">豆浆机</a><a href="javascript:;">咖啡机</a><a href="javascript:;">面包机</a><a href="javascript:;">榨汁机</a><a href="javascript:;">料理机</a><a href="javascript:;">电饼铛</a><a href="javascript:;">养生壶/煎药壶</a><a href="javascript:;">酸奶机</a><a href="javascript:;">煮蛋器</a><a href="javascript:;">电水壶/热水瓶</a><a href="javascript:;">电炖锅</a><a href="javascript:;">多用途锅</a><a href="javascript:;">电烧烤炉</a><a href="javascript:;">电热饭盒</a><a href="javascript:;">其它厨房电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">生活电器<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电风扇</a><a href="javascript:;">冷风扇</a><a href="javascript:;">吸尘器</a><a href="javascript:;">净化器</a><a href="javascript:;">扫地机器人</a><a href="javascript:;">加湿器</a><a href="javascript:;">挂烫机/熨斗</a><a href="javascript:;">取暖电器</a><a href="javascript:;">插座</a><a href="javascript:;">电话机</a><a href="javascript:;">净水器</a><a href="javascript:;">饮水机</a><a href="javascript:;">除湿机</a><a href="javascript:;">干衣机</a><a href="javascript:;">清洁机</a><a href="javascript:;">收录/音机</a><a href="javascript:;">其它生活电器</a><a href="javascript:;">生活电器配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">个护健康<i>></i></a></dt>
+                                    <dd><a href="javascript:;">剃须刀</a><a href="javascript:;">口腔护理</a><a href="javascript:;">电吹风</a><a href="javascript:;">美容器</a><a href="javascript:;">卷/直发器</a><a href="javascript:;">理发器</a><a href="javascript:;">剃/脱毛器</a><a href="javascript:;">足浴盆</a><a href="javascript:;">健康秤/厨房秤</a><a href="javascript:;">按摩器</a><a href="javascript:;">按摩椅</a><a href="javascript:;">血压计</a><a href="javascript:;">血糖仪</a><a href="javascript:;">体温计</a><a href="javascript:;">计步器/脂肪检测仪</a><a href="javascript:;">其它健康电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">五金家装<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电动工具</a><a href="javascript:;">手动工具</a><a href="javascript:;">仪器仪表</a><a href="javascript:;">浴霸/排气扇</a><a href="javascript:;">灯具</a><a href="javascript:;">LED灯</a><a href="javascript:;">洁身器</a><a href="javascript:;">水槽</a><a href="javascript:;">水槽</a><a href="javascript:;">龙头</a><a href="javascript:;">淋浴花洒</a><a href="javascript:;">厨卫五金</a><a href="javascript:;">家具五金</a><a href="javascript:;">门铃</a><a href="javascript:;">电气开关</a><a href="javascript:;">插座</a><a href="javascript:;">电工电料</a><a href="javascript:;">监控安防</a><a href="javascript:;">电线/线缆</a></dd>
+                              	</dl>
+                            </div>
+                        </div>
+                        <div class="right">
+                        	<div class="show">
+                            	<ul class="clearfix">
+                                	<li><a href="javascript:;"><img src="images/shou-icon_03.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_05.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_09.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_10.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_11.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_13.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_15.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_16.jpg"></a></li>
+                                </ul>
+                                <div class="mid-icon">
+                                    <a href="javascript:;"><img src="images/577f019cN4ea29161.jpg"></a>
+                                    <a href="javascript:;"><img src="images/shou-icon_19.jpg"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section1 clearfix">
+                        <div class="left">
+                        	<div class="brand">
+                            	<a href="javascript:;">家电狂欢<i>></i></a>
+                            	<a href="javascript:;">品牌日<i>></i></a>
+                            	<a href="javascript:;">家电城<i>></i></a>
+                            	<a href="javascript:;">智能生活馆<i>></i></a>
+                            	<a href="javascript:;">京东净化馆<i>></i></a>
+                            	<a href="javascript:;">京东帮服务店<i>></i></a>
+                            </div>
+                            <div class="menu">
+                            	<dl>
+                                	<dt><a href="javascript:;">大家电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">平板电脑</a><a href="javascript:;">空调</a><a href="javascript:;">冰箱</a><a href="javascript:;">洗衣机</a><a href="javascript:;">家庭影院</a><a href="javascript:;">DVD</a><a href="javascript:;">迷你音响</a><a href="javascript:;">冷柜/冰吧</a><a href="javascript:;">酒柜</a><a href="javascript:;">家电配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨卫大电<i>></i></a></dt>
+                                    <dd><a href="javascript:;">油烟机</a><a href="javascript:;">燃气灶</a><a href="javascript:;">烟灶套装</a><a href="javascript:;">消毒柜</a><a href="javascript:;">洗碗机</a><a href="javascript:;">电热水器</a><a href="javascript:;">燃气热水器</a><a href="javascript:;">嵌入式厨电</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨房小电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">电饭煲</a><a href="javascript:;">微波炉</a><a href="javascript:;">电烤箱</a><a href="javascript:;">电磁炉</a><a href="javascript:;">电压力锅</a><a href="javascript:;">豆浆机</a><a href="javascript:;">咖啡机</a><a href="javascript:;">面包机</a><a href="javascript:;">榨汁机</a><a href="javascript:;">料理机</a><a href="javascript:;">电饼铛</a><a href="javascript:;">养生壶/煎药壶</a><a href="javascript:;">酸奶机</a><a href="javascript:;">煮蛋器</a><a href="javascript:;">电水壶/热水瓶</a><a href="javascript:;">电炖锅</a><a href="javascript:;">多用途锅</a><a href="javascript:;">电烧烤炉</a><a href="javascript:;">电热饭盒</a><a href="javascript:;">其它厨房电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">生活电器<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电风扇</a><a href="javascript:;">冷风扇</a><a href="javascript:;">吸尘器</a><a href="javascript:;">净化器</a><a href="javascript:;">扫地机器人</a><a href="javascript:;">加湿器</a><a href="javascript:;">挂烫机/熨斗</a><a href="javascript:;">取暖电器</a><a href="javascript:;">插座</a><a href="javascript:;">电话机</a><a href="javascript:;">净水器</a><a href="javascript:;">饮水机</a><a href="javascript:;">除湿机</a><a href="javascript:;">干衣机</a><a href="javascript:;">清洁机</a><a href="javascript:;">收录/音机</a><a href="javascript:;">其它生活电器</a><a href="javascript:;">生活电器配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">个护健康<i>></i></a></dt>
+                                    <dd><a href="javascript:;">剃须刀</a><a href="javascript:;">口腔护理</a><a href="javascript:;">电吹风</a><a href="javascript:;">美容器</a><a href="javascript:;">卷/直发器</a><a href="javascript:;">理发器</a><a href="javascript:;">剃/脱毛器</a><a href="javascript:;">足浴盆</a><a href="javascript:;">健康秤/厨房秤</a><a href="javascript:;">按摩器</a><a href="javascript:;">按摩椅</a><a href="javascript:;">血压计</a><a href="javascript:;">血糖仪</a><a href="javascript:;">体温计</a><a href="javascript:;">计步器/脂肪检测仪</a><a href="javascript:;">其它健康电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">五金家装<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电动工具</a><a href="javascript:;">手动工具</a><a href="javascript:;">仪器仪表</a><a href="javascript:;">浴霸/排气扇</a><a href="javascript:;">灯具</a><a href="javascript:;">LED灯</a><a href="javascript:;">洁身器</a><a href="javascript:;">水槽</a><a href="javascript:;">水槽</a><a href="javascript:;">龙头</a><a href="javascript:;">淋浴花洒</a><a href="javascript:;">厨卫五金</a><a href="javascript:;">家具五金</a><a href="javascript:;">门铃</a><a href="javascript:;">电气开关</a><a href="javascript:;">插座</a><a href="javascript:;">电工电料</a><a href="javascript:;">监控安防</a><a href="javascript:;">电线/线缆</a></dd>
+                              	</dl>
+                            </div>
+                        </div>
+                        <div class="right">
+                        	<div class="show">
+                            	<ul class="clearfix">
+                                	<li><a href="javascript:;"><img src="images/shou-icon_03.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_05.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_09.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_10.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_11.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_13.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_15.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_16.jpg"></a></li>
+                                </ul>
+                                <div class="mid-icon">
+                                    <a href="javascript:;"><img src="images/577f019cN4ea29161.jpg"></a>
+                                    <a href="javascript:;"><img src="images/shou-icon_19.jpg"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section1 clearfix">
+                        <div class="left">
+                        	<div class="brand">
+                            	<a href="javascript:;">家电狂欢<i>></i></a>
+                            	<a href="javascript:;">品牌日<i>></i></a>
+                            	<a href="javascript:;">家电城<i>></i></a>
+                            	<a href="javascript:;">智能生活馆<i>></i></a>
+                            	<a href="javascript:;">京东净化馆<i>></i></a>
+                            	<a href="javascript:;">京东帮服务店<i>></i></a>
+                            </div>
+                            <div class="menu">
+                            	<dl>
+                                	<dt><a href="javascript:;">大家电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">平板电脑</a><a href="javascript:;">空调</a><a href="javascript:;">冰箱</a><a href="javascript:;">洗衣机</a><a href="javascript:;">家庭影院</a><a href="javascript:;">DVD</a><a href="javascript:;">迷你音响</a><a href="javascript:;">冷柜/冰吧</a><a href="javascript:;">酒柜</a><a href="javascript:;">家电配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨卫大电<i>></i></a></dt>
+                                    <dd><a href="javascript:;">油烟机</a><a href="javascript:;">燃气灶</a><a href="javascript:;">烟灶套装</a><a href="javascript:;">消毒柜</a><a href="javascript:;">洗碗机</a><a href="javascript:;">电热水器</a><a href="javascript:;">燃气热水器</a><a href="javascript:;">嵌入式厨电</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨房小电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">电饭煲</a><a href="javascript:;">微波炉</a><a href="javascript:;">电烤箱</a><a href="javascript:;">电磁炉</a><a href="javascript:;">电压力锅</a><a href="javascript:;">豆浆机</a><a href="javascript:;">咖啡机</a><a href="javascript:;">面包机</a><a href="javascript:;">榨汁机</a><a href="javascript:;">料理机</a><a href="javascript:;">电饼铛</a><a href="javascript:;">养生壶/煎药壶</a><a href="javascript:;">酸奶机</a><a href="javascript:;">煮蛋器</a><a href="javascript:;">电水壶/热水瓶</a><a href="javascript:;">电炖锅</a><a href="javascript:;">多用途锅</a><a href="javascript:;">电烧烤炉</a><a href="javascript:;">电热饭盒</a><a href="javascript:;">其它厨房电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">生活电器<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电风扇</a><a href="javascript:;">冷风扇</a><a href="javascript:;">吸尘器</a><a href="javascript:;">净化器</a><a href="javascript:;">扫地机器人</a><a href="javascript:;">加湿器</a><a href="javascript:;">挂烫机/熨斗</a><a href="javascript:;">取暖电器</a><a href="javascript:;">插座</a><a href="javascript:;">电话机</a><a href="javascript:;">净水器</a><a href="javascript:;">饮水机</a><a href="javascript:;">除湿机</a><a href="javascript:;">干衣机</a><a href="javascript:;">清洁机</a><a href="javascript:;">收录/音机</a><a href="javascript:;">其它生活电器</a><a href="javascript:;">生活电器配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">个护健康<i>></i></a></dt>
+                                    <dd><a href="javascript:;">剃须刀</a><a href="javascript:;">口腔护理</a><a href="javascript:;">电吹风</a><a href="javascript:;">美容器</a><a href="javascript:;">卷/直发器</a><a href="javascript:;">理发器</a><a href="javascript:;">剃/脱毛器</a><a href="javascript:;">足浴盆</a><a href="javascript:;">健康秤/厨房秤</a><a href="javascript:;">按摩器</a><a href="javascript:;">按摩椅</a><a href="javascript:;">血压计</a><a href="javascript:;">血糖仪</a><a href="javascript:;">体温计</a><a href="javascript:;">计步器/脂肪检测仪</a><a href="javascript:;">其它健康电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">五金家装<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电动工具</a><a href="javascript:;">手动工具</a><a href="javascript:;">仪器仪表</a><a href="javascript:;">浴霸/排气扇</a><a href="javascript:;">灯具</a><a href="javascript:;">LED灯</a><a href="javascript:;">洁身器</a><a href="javascript:;">水槽</a><a href="javascript:;">水槽</a><a href="javascript:;">龙头</a><a href="javascript:;">淋浴花洒</a><a href="javascript:;">厨卫五金</a><a href="javascript:;">家具五金</a><a href="javascript:;">门铃</a><a href="javascript:;">电气开关</a><a href="javascript:;">插座</a><a href="javascript:;">电工电料</a><a href="javascript:;">监控安防</a><a href="javascript:;">电线/线缆</a></dd>
+                              	</dl>
+                            </div>
+                        </div>
+                        <div class="right">
+                        	<div class="show">
+                            	<ul class="clearfix">
+                                	<li><a href="javascript:;"><img src="images/shou-icon_03.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_05.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_09.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_10.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_11.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_13.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_15.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_16.jpg"></a></li>
+                                </ul>
+                                <div class="mid-icon">
+                                    <a href="javascript:;"><img src="images/577f019cN4ea29161.jpg"></a>
+                                    <a href="javascript:;"><img src="images/shou-icon_19.jpg"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section1 clearfix">
+                        <div class="left">
+                        	<div class="brand">
+                            	<a href="javascript:;">家电狂欢<i>></i></a>
+                            	<a href="javascript:;">品牌日<i>></i></a>
+                            	<a href="javascript:;">家电城<i>></i></a>
+                            	<a href="javascript:;">智能生活馆<i>></i></a>
+                            	<a href="javascript:;">京东净化馆<i>></i></a>
+                            	<a href="javascript:;">京东帮服务店<i>></i></a>
+                            </div>
+                            <div class="menu">
+                            	<dl>
+                                	<dt><a href="javascript:;">大家电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">平板电脑</a><a href="javascript:;">空调</a><a href="javascript:;">冰箱</a><a href="javascript:;">洗衣机</a><a href="javascript:;">家庭影院</a><a href="javascript:;">DVD</a><a href="javascript:;">迷你音响</a><a href="javascript:;">冷柜/冰吧</a><a href="javascript:;">酒柜</a><a href="javascript:;">家电配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨卫大电<i>></i></a></dt>
+                                    <dd><a href="javascript:;">油烟机</a><a href="javascript:;">燃气灶</a><a href="javascript:;">烟灶套装</a><a href="javascript:;">消毒柜</a><a href="javascript:;">洗碗机</a><a href="javascript:;">电热水器</a><a href="javascript:;">燃气热水器</a><a href="javascript:;">嵌入式厨电</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨房小电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">电饭煲</a><a href="javascript:;">微波炉</a><a href="javascript:;">电烤箱</a><a href="javascript:;">电磁炉</a><a href="javascript:;">电压力锅</a><a href="javascript:;">豆浆机</a><a href="javascript:;">咖啡机</a><a href="javascript:;">面包机</a><a href="javascript:;">榨汁机</a><a href="javascript:;">料理机</a><a href="javascript:;">电饼铛</a><a href="javascript:;">养生壶/煎药壶</a><a href="javascript:;">酸奶机</a><a href="javascript:;">煮蛋器</a><a href="javascript:;">电水壶/热水瓶</a><a href="javascript:;">电炖锅</a><a href="javascript:;">多用途锅</a><a href="javascript:;">电烧烤炉</a><a href="javascript:;">电热饭盒</a><a href="javascript:;">其它厨房电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">生活电器<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电风扇</a><a href="javascript:;">冷风扇</a><a href="javascript:;">吸尘器</a><a href="javascript:;">净化器</a><a href="javascript:;">扫地机器人</a><a href="javascript:;">加湿器</a><a href="javascript:;">挂烫机/熨斗</a><a href="javascript:;">取暖电器</a><a href="javascript:;">插座</a><a href="javascript:;">电话机</a><a href="javascript:;">净水器</a><a href="javascript:;">饮水机</a><a href="javascript:;">除湿机</a><a href="javascript:;">干衣机</a><a href="javascript:;">清洁机</a><a href="javascript:;">收录/音机</a><a href="javascript:;">其它生活电器</a><a href="javascript:;">生活电器配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">个护健康<i>></i></a></dt>
+                                    <dd><a href="javascript:;">剃须刀</a><a href="javascript:;">口腔护理</a><a href="javascript:;">电吹风</a><a href="javascript:;">美容器</a><a href="javascript:;">卷/直发器</a><a href="javascript:;">理发器</a><a href="javascript:;">剃/脱毛器</a><a href="javascript:;">足浴盆</a><a href="javascript:;">健康秤/厨房秤</a><a href="javascript:;">按摩器</a><a href="javascript:;">按摩椅</a><a href="javascript:;">血压计</a><a href="javascript:;">血糖仪</a><a href="javascript:;">体温计</a><a href="javascript:;">计步器/脂肪检测仪</a><a href="javascript:;">其它健康电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">五金家装<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电动工具</a><a href="javascript:;">手动工具</a><a href="javascript:;">仪器仪表</a><a href="javascript:;">浴霸/排气扇</a><a href="javascript:;">灯具</a><a href="javascript:;">LED灯</a><a href="javascript:;">洁身器</a><a href="javascript:;">水槽</a><a href="javascript:;">水槽</a><a href="javascript:;">龙头</a><a href="javascript:;">淋浴花洒</a><a href="javascript:;">厨卫五金</a><a href="javascript:;">家具五金</a><a href="javascript:;">门铃</a><a href="javascript:;">电气开关</a><a href="javascript:;">插座</a><a href="javascript:;">电工电料</a><a href="javascript:;">监控安防</a><a href="javascript:;">电线/线缆</a></dd>
+                              	</dl>
+                            </div>
+                        </div>
+                        <div class="right">
+                        	<div class="show">
+                            	<ul class="clearfix">
+                                	<li><a href="javascript:;"><img src="images/shou-icon_03.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_05.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_09.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_10.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_11.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_13.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_15.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_16.jpg"></a></li>
+                                </ul>
+                                <div class="mid-icon">
+                                    <a href="javascript:;"><img src="images/577f019cN4ea29161.jpg"></a>
+                                    <a href="javascript:;"><img src="images/shou-icon_19.jpg"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                	<div class="section1 clearfix">
+                        <div class="left">
+                        	<div class="brand">
+                            	<a href="javascript:;">家电狂欢<i>></i></a>
+                            	<a href="javascript:;">品牌日<i>></i></a>
+                            	<a href="javascript:;">家电城<i>></i></a>
+                            	<a href="javascript:;">智能生活馆<i>></i></a>
+                            	<a href="javascript:;">京东净化馆<i>></i></a>
+                            	<a href="javascript:;">京东帮服务店<i>></i></a>
+                            	<a href="javascript:;">家电众筹馆<i>></i></a>
+                            </div>
+                            <div class="menu">
+                            	<dl>
+                                	<dt><a href="javascript:;">大家电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">平板电脑</a><a href="javascript:;">空调</a><a href="javascript:;">冰箱</a><a href="javascript:;">洗衣机</a><a href="javascript:;">家庭影院</a><a href="javascript:;">DVD</a><a href="javascript:;">迷你音响</a><a href="javascript:;">冷柜/冰吧</a><a href="javascript:;">酒柜</a><a href="javascript:;">家电配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨卫大电<i>></i></a></dt>
+                                    <dd><a href="javascript:;">油烟机</a><a href="javascript:;">燃气灶</a><a href="javascript:;">烟灶套装</a><a href="javascript:;">消毒柜</a><a href="javascript:;">洗碗机</a><a href="javascript:;">电热水器</a><a href="javascript:;">燃气热水器</a><a href="javascript:;">嵌入式厨电</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨房小电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">电饭煲</a><a href="javascript:;">微波炉</a><a href="javascript:;">电烤箱</a><a href="javascript:;">电磁炉</a><a href="javascript:;">电压力锅</a><a href="javascript:;">豆浆机</a><a href="javascript:;">咖啡机</a><a href="javascript:;">面包机</a><a href="javascript:;">榨汁机</a><a href="javascript:;">料理机</a><a href="javascript:;">电饼铛</a><a href="javascript:;">养生壶/煎药壶</a><a href="javascript:;">酸奶机</a><a href="javascript:;">煮蛋器</a><a href="javascript:;">电水壶/热水瓶</a><a href="javascript:;">电炖锅</a><a href="javascript:;">多用途锅</a><a href="javascript:;">电烧烤炉</a><a href="javascript:;">电热饭盒</a><a href="javascript:;">其它厨房电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">生活电器<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电风扇</a><a href="javascript:;">冷风扇</a><a href="javascript:;">吸尘器</a><a href="javascript:;">净化器</a><a href="javascript:;">扫地机器人</a><a href="javascript:;">加湿器</a><a href="javascript:;">挂烫机/熨斗</a><a href="javascript:;">取暖电器</a><a href="javascript:;">插座</a><a href="javascript:;">电话机</a><a href="javascript:;">净水器</a><a href="javascript:;">饮水机</a><a href="javascript:;">除湿机</a><a href="javascript:;">干衣机</a><a href="javascript:;">清洁机</a><a href="javascript:;">收录/音机</a><a href="javascript:;">其它生活电器</a><a href="javascript:;">生活电器配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">个护健康<i>></i></a></dt>
+                                    <dd><a href="javascript:;">剃须刀</a><a href="javascript:;">口腔护理</a><a href="javascript:;">电吹风</a><a href="javascript:;">美容器</a><a href="javascript:;">卷/直发器</a><a href="javascript:;">理发器</a><a href="javascript:;">剃/脱毛器</a><a href="javascript:;">足浴盆</a><a href="javascript:;">健康秤/厨房秤</a><a href="javascript:;">按摩器</a><a href="javascript:;">按摩椅</a><a href="javascript:;">血压计</a><a href="javascript:;">血糖仪</a><a href="javascript:;">体温计</a><a href="javascript:;">计步器/脂肪检测仪</a><a href="javascript:;">其它健康电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">五金家装<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电动工具</a><a href="javascript:;">手动工具</a><a href="javascript:;">仪器仪表</a><a href="javascript:;">浴霸/排气扇</a><a href="javascript:;">灯具</a><a href="javascript:;">LED灯</a><a href="javascript:;">洁身器</a><a href="javascript:;">水槽</a><a href="javascript:;">水槽</a><a href="javascript:;">龙头</a><a href="javascript:;">淋浴花洒</a><a href="javascript:;">厨卫五金</a><a href="javascript:;">家具五金</a><a href="javascript:;">门铃</a><a href="javascript:;">电气开关</a><a href="javascript:;">插座</a><a href="javascript:;">电工电料</a><a href="javascript:;">监控安防</a><a href="javascript:;">电线/线缆</a></dd>
+                              	</dl>
+                            </div>
+                        </div>
+                        <div class="right">
+                        	<div class="show">
+                            	<ul class="clearfix">
+                                	<li><a href="javascript:;"><img src="images/shou-icon_03.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_05.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_09.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_10.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_11.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_13.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_15.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_16.jpg"></a></li>
+                                </ul>
+                                <div class="mid-icon">
+                                    <a href="javascript:;"><img src="images/577f019cN4ea29161.jpg"></a>
+                                    <a href="javascript:;"><img src="images/shou-icon_19.jpg"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section1 clearfix">
+                        <div class="left">
+                        	<div class="brand">
+                            	<a href="javascript:;">家电狂欢<i>></i></a>
+                            	<a href="javascript:;">品牌日<i>></i></a>
+                            	<a href="javascript:;">家电城<i>></i></a>
+                            	<a href="javascript:;">智能生活馆<i>></i></a>
+                            	<a href="javascript:;">京东净化馆<i>></i></a>
+                            	<a href="javascript:;">京东帮服务店<i>></i></a>
+                            </div>
+                            <div class="menu">
+                            	<dl>
+                                	<dt><a href="javascript:;">大家电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">平板电脑</a><a href="javascript:;">空调</a><a href="javascript:;">冰箱</a><a href="javascript:;">洗衣机</a><a href="javascript:;">家庭影院</a><a href="javascript:;">DVD</a><a href="javascript:;">迷你音响</a><a href="javascript:;">冷柜/冰吧</a><a href="javascript:;">酒柜</a><a href="javascript:;">家电配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨卫大电<i>></i></a></dt>
+                                    <dd><a href="javascript:;">油烟机</a><a href="javascript:;">燃气灶</a><a href="javascript:;">烟灶套装</a><a href="javascript:;">消毒柜</a><a href="javascript:;">洗碗机</a><a href="javascript:;">电热水器</a><a href="javascript:;">燃气热水器</a><a href="javascript:;">嵌入式厨电</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨房小电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">电饭煲</a><a href="javascript:;">微波炉</a><a href="javascript:;">电烤箱</a><a href="javascript:;">电磁炉</a><a href="javascript:;">电压力锅</a><a href="javascript:;">豆浆机</a><a href="javascript:;">咖啡机</a><a href="javascript:;">面包机</a><a href="javascript:;">榨汁机</a><a href="javascript:;">料理机</a><a href="javascript:;">电饼铛</a><a href="javascript:;">养生壶/煎药壶</a><a href="javascript:;">酸奶机</a><a href="javascript:;">煮蛋器</a><a href="javascript:;">电水壶/热水瓶</a><a href="javascript:;">电炖锅</a><a href="javascript:;">多用途锅</a><a href="javascript:;">电烧烤炉</a><a href="javascript:;">电热饭盒</a><a href="javascript:;">其它厨房电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">生活电器<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电风扇</a><a href="javascript:;">冷风扇</a><a href="javascript:;">吸尘器</a><a href="javascript:;">净化器</a><a href="javascript:;">扫地机器人</a><a href="javascript:;">加湿器</a><a href="javascript:;">挂烫机/熨斗</a><a href="javascript:;">取暖电器</a><a href="javascript:;">插座</a><a href="javascript:;">电话机</a><a href="javascript:;">净水器</a><a href="javascript:;">饮水机</a><a href="javascript:;">除湿机</a><a href="javascript:;">干衣机</a><a href="javascript:;">清洁机</a><a href="javascript:;">收录/音机</a><a href="javascript:;">其它生活电器</a><a href="javascript:;">生活电器配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">个护健康<i>></i></a></dt>
+                                    <dd><a href="javascript:;">剃须刀</a><a href="javascript:;">口腔护理</a><a href="javascript:;">电吹风</a><a href="javascript:;">美容器</a><a href="javascript:;">卷/直发器</a><a href="javascript:;">理发器</a><a href="javascript:;">剃/脱毛器</a><a href="javascript:;">足浴盆</a><a href="javascript:;">健康秤/厨房秤</a><a href="javascript:;">按摩器</a><a href="javascript:;">按摩椅</a><a href="javascript:;">血压计</a><a href="javascript:;">血糖仪</a><a href="javascript:;">体温计</a><a href="javascript:;">计步器/脂肪检测仪</a><a href="javascript:;">其它健康电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">五金家装<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电动工具</a><a href="javascript:;">手动工具</a><a href="javascript:;">仪器仪表</a><a href="javascript:;">浴霸/排气扇</a><a href="javascript:;">灯具</a><a href="javascript:;">LED灯</a><a href="javascript:;">洁身器</a><a href="javascript:;">水槽</a><a href="javascript:;">水槽</a><a href="javascript:;">龙头</a><a href="javascript:;">淋浴花洒</a><a href="javascript:;">厨卫五金</a><a href="javascript:;">家具五金</a><a href="javascript:;">门铃</a><a href="javascript:;">电气开关</a><a href="javascript:;">插座</a><a href="javascript:;">电工电料</a><a href="javascript:;">监控安防</a><a href="javascript:;">电线/线缆</a></dd>
+                              	</dl>
+                            </div>
+                        </div>
+                        <div class="right">
+                        	<div class="show">
+                            	<ul class="clearfix">
+                                	<li><a href="javascript:;"><img src="images/shou-icon_03.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_05.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_09.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_10.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_11.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_13.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_15.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_16.jpg"></a></li>
+                                </ul>
+                                <div class="mid-icon">
+                                    <a href="javascript:;"><img src="images/577f019cN4ea29161.jpg"></a>
+                                    <a href="javascript:;"><img src="images/shou-icon_19.jpg"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section1 clearfix">
+                        <div class="left">
+                        	<div class="brand">
+                            	<a href="javascript:;">家电狂欢<i>></i></a>
+                            	<a href="javascript:;">品牌日<i>></i></a>
+                            	<a href="javascript:;">家电城<i>></i></a>
+                            	<a href="javascript:;">智能生活馆<i>></i></a>
+                            	<a href="javascript:;">京东净化馆<i>></i></a>
+                            	<a href="javascript:;">京东帮服务店<i>></i></a>
+                            </div>
+                            <div class="menu">
+                            	<dl>
+                                	<dt><a href="javascript:;">大家电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">平板电脑</a><a href="javascript:;">空调</a><a href="javascript:;">冰箱</a><a href="javascript:;">洗衣机</a><a href="javascript:;">家庭影院</a><a href="javascript:;">DVD</a><a href="javascript:;">迷你音响</a><a href="javascript:;">冷柜/冰吧</a><a href="javascript:;">酒柜</a><a href="javascript:;">家电配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨卫大电<i>></i></a></dt>
+                                    <dd><a href="javascript:;">油烟机</a><a href="javascript:;">燃气灶</a><a href="javascript:;">烟灶套装</a><a href="javascript:;">消毒柜</a><a href="javascript:;">洗碗机</a><a href="javascript:;">电热水器</a><a href="javascript:;">燃气热水器</a><a href="javascript:;">嵌入式厨电</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨房小电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">电饭煲</a><a href="javascript:;">微波炉</a><a href="javascript:;">电烤箱</a><a href="javascript:;">电磁炉</a><a href="javascript:;">电压力锅</a><a href="javascript:;">豆浆机</a><a href="javascript:;">咖啡机</a><a href="javascript:;">面包机</a><a href="javascript:;">榨汁机</a><a href="javascript:;">料理机</a><a href="javascript:;">电饼铛</a><a href="javascript:;">养生壶/煎药壶</a><a href="javascript:;">酸奶机</a><a href="javascript:;">煮蛋器</a><a href="javascript:;">电水壶/热水瓶</a><a href="javascript:;">电炖锅</a><a href="javascript:;">多用途锅</a><a href="javascript:;">电烧烤炉</a><a href="javascript:;">电热饭盒</a><a href="javascript:;">其它厨房电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">生活电器<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电风扇</a><a href="javascript:;">冷风扇</a><a href="javascript:;">吸尘器</a><a href="javascript:;">净化器</a><a href="javascript:;">扫地机器人</a><a href="javascript:;">加湿器</a><a href="javascript:;">挂烫机/熨斗</a><a href="javascript:;">取暖电器</a><a href="javascript:;">插座</a><a href="javascript:;">电话机</a><a href="javascript:;">净水器</a><a href="javascript:;">饮水机</a><a href="javascript:;">除湿机</a><a href="javascript:;">干衣机</a><a href="javascript:;">清洁机</a><a href="javascript:;">收录/音机</a><a href="javascript:;">其它生活电器</a><a href="javascript:;">生活电器配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">个护健康<i>></i></a></dt>
+                                    <dd><a href="javascript:;">剃须刀</a><a href="javascript:;">口腔护理</a><a href="javascript:;">电吹风</a><a href="javascript:;">美容器</a><a href="javascript:;">卷/直发器</a><a href="javascript:;">理发器</a><a href="javascript:;">剃/脱毛器</a><a href="javascript:;">足浴盆</a><a href="javascript:;">健康秤/厨房秤</a><a href="javascript:;">按摩器</a><a href="javascript:;">按摩椅</a><a href="javascript:;">血压计</a><a href="javascript:;">血糖仪</a><a href="javascript:;">体温计</a><a href="javascript:;">计步器/脂肪检测仪</a><a href="javascript:;">其它健康电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">五金家装<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电动工具</a><a href="javascript:;">手动工具</a><a href="javascript:;">仪器仪表</a><a href="javascript:;">浴霸/排气扇</a><a href="javascript:;">灯具</a><a href="javascript:;">LED灯</a><a href="javascript:;">洁身器</a><a href="javascript:;">水槽</a><a href="javascript:;">水槽</a><a href="javascript:;">龙头</a><a href="javascript:;">淋浴花洒</a><a href="javascript:;">厨卫五金</a><a href="javascript:;">家具五金</a><a href="javascript:;">门铃</a><a href="javascript:;">电气开关</a><a href="javascript:;">插座</a><a href="javascript:;">电工电料</a><a href="javascript:;">监控安防</a><a href="javascript:;">电线/线缆</a></dd>
+                              	</dl>
+                            </div>
+                        </div>
+                        <div class="right">
+                        	<div class="show">
+                            	<ul class="clearfix">
+                                	<li><a href="javascript:;"><img src="images/shou-icon_03.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_05.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_09.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_10.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_11.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_13.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_15.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_16.jpg"></a></li>
+                                </ul>
+                                <div class="mid-icon">
+                                    <a href="javascript:;"><img src="images/577f019cN4ea29161.jpg"></a>
+                                    <a href="javascript:;"><img src="images/shou-icon_19.jpg"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section1 clearfix">
+                        <div class="left">
+                        	<div class="brand">
+                            	<a href="javascript:;">家电狂欢<i>></i></a>
+                            	<a href="javascript:;">品牌日<i>></i></a>
+                            	<a href="javascript:;">家电城<i>></i></a>
+                            	<a href="javascript:;">智能生活馆<i>></i></a>
+                            	<a href="javascript:;">京东净化馆<i>></i></a>
+                            	<a href="javascript:;">京东帮服务店<i>></i></a>
+                            </div>
+                            <div class="menu">
+                            	<dl>
+                                	<dt><a href="javascript:;">大家电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">平板电脑</a><a href="javascript:;">空调</a><a href="javascript:;">冰箱</a><a href="javascript:;">洗衣机</a><a href="javascript:;">家庭影院</a><a href="javascript:;">DVD</a><a href="javascript:;">迷你音响</a><a href="javascript:;">冷柜/冰吧</a><a href="javascript:;">酒柜</a><a href="javascript:;">家电配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨卫大电<i>></i></a></dt>
+                                    <dd><a href="javascript:;">油烟机</a><a href="javascript:;">燃气灶</a><a href="javascript:;">烟灶套装</a><a href="javascript:;">消毒柜</a><a href="javascript:;">洗碗机</a><a href="javascript:;">电热水器</a><a href="javascript:;">燃气热水器</a><a href="javascript:;">嵌入式厨电</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨房小电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">电饭煲</a><a href="javascript:;">微波炉</a><a href="javascript:;">电烤箱</a><a href="javascript:;">电磁炉</a><a href="javascript:;">电压力锅</a><a href="javascript:;">豆浆机</a><a href="javascript:;">咖啡机</a><a href="javascript:;">面包机</a><a href="javascript:;">榨汁机</a><a href="javascript:;">料理机</a><a href="javascript:;">电饼铛</a><a href="javascript:;">养生壶/煎药壶</a><a href="javascript:;">酸奶机</a><a href="javascript:;">煮蛋器</a><a href="javascript:;">电水壶/热水瓶</a><a href="javascript:;">电炖锅</a><a href="javascript:;">多用途锅</a><a href="javascript:;">电烧烤炉</a><a href="javascript:;">电热饭盒</a><a href="javascript:;">其它厨房电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">生活电器<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电风扇</a><a href="javascript:;">冷风扇</a><a href="javascript:;">吸尘器</a><a href="javascript:;">净化器</a><a href="javascript:;">扫地机器人</a><a href="javascript:;">加湿器</a><a href="javascript:;">挂烫机/熨斗</a><a href="javascript:;">取暖电器</a><a href="javascript:;">插座</a><a href="javascript:;">电话机</a><a href="javascript:;">净水器</a><a href="javascript:;">饮水机</a><a href="javascript:;">除湿机</a><a href="javascript:;">干衣机</a><a href="javascript:;">清洁机</a><a href="javascript:;">收录/音机</a><a href="javascript:;">其它生活电器</a><a href="javascript:;">生活电器配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">个护健康<i>></i></a></dt>
+                                    <dd><a href="javascript:;">剃须刀</a><a href="javascript:;">口腔护理</a><a href="javascript:;">电吹风</a><a href="javascript:;">美容器</a><a href="javascript:;">卷/直发器</a><a href="javascript:;">理发器</a><a href="javascript:;">剃/脱毛器</a><a href="javascript:;">足浴盆</a><a href="javascript:;">健康秤/厨房秤</a><a href="javascript:;">按摩器</a><a href="javascript:;">按摩椅</a><a href="javascript:;">血压计</a><a href="javascript:;">血糖仪</a><a href="javascript:;">体温计</a><a href="javascript:;">计步器/脂肪检测仪</a><a href="javascript:;">其它健康电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">五金家装<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电动工具</a><a href="javascript:;">手动工具</a><a href="javascript:;">仪器仪表</a><a href="javascript:;">浴霸/排气扇</a><a href="javascript:;">灯具</a><a href="javascript:;">LED灯</a><a href="javascript:;">洁身器</a><a href="javascript:;">水槽</a><a href="javascript:;">水槽</a><a href="javascript:;">龙头</a><a href="javascript:;">淋浴花洒</a><a href="javascript:;">厨卫五金</a><a href="javascript:;">家具五金</a><a href="javascript:;">门铃</a><a href="javascript:;">电气开关</a><a href="javascript:;">插座</a><a href="javascript:;">电工电料</a><a href="javascript:;">监控安防</a><a href="javascript:;">电线/线缆</a></dd>
+                              	</dl>
+                            </div>
+                        </div>
+                        <div class="right">
+                        	<div class="show">
+                            	<ul class="clearfix">
+                                	<li><a href="javascript:;"><img src="images/shou-icon_03.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_05.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_09.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_10.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_11.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_13.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_15.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_16.jpg"></a></li>
+                                </ul>
+                                <div class="mid-icon">
+                                    <a href="javascript:;"><img src="images/577f019cN4ea29161.jpg"></a>
+                                    <a href="javascript:;"><img src="images/shou-icon_19.jpg"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                	<div class="section1 clearfix">
+                        <div class="left">
+                        	<div class="brand">
+                            	<a href="javascript:;">家电狂欢<i>></i></a>
+                            	<a href="javascript:;">品牌日<i>></i></a>
+                            	<a href="javascript:;">家电城<i>></i></a>
+                            	<a href="javascript:;">智能生活馆<i>></i></a>
+                            	<a href="javascript:;">京东净化馆<i>></i></a>
+                            	<a href="javascript:;">京东帮服务店<i>></i></a>
+                            	<a href="javascript:;">家电众筹馆<i>></i></a>
+                            </div>
+                            <div class="menu">
+                            	<dl>
+                                	<dt><a href="javascript:;">大家电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">平板电脑</a><a href="javascript:;">空调</a><a href="javascript:;">冰箱</a><a href="javascript:;">洗衣机</a><a href="javascript:;">家庭影院</a><a href="javascript:;">DVD</a><a href="javascript:;">迷你音响</a><a href="javascript:;">冷柜/冰吧</a><a href="javascript:;">酒柜</a><a href="javascript:;">家电配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨卫大电<i>></i></a></dt>
+                                    <dd><a href="javascript:;">油烟机</a><a href="javascript:;">燃气灶</a><a href="javascript:;">烟灶套装</a><a href="javascript:;">消毒柜</a><a href="javascript:;">洗碗机</a><a href="javascript:;">电热水器</a><a href="javascript:;">燃气热水器</a><a href="javascript:;">嵌入式厨电</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨房小电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">电饭煲</a><a href="javascript:;">微波炉</a><a href="javascript:;">电烤箱</a><a href="javascript:;">电磁炉</a><a href="javascript:;">电压力锅</a><a href="javascript:;">豆浆机</a><a href="javascript:;">咖啡机</a><a href="javascript:;">面包机</a><a href="javascript:;">榨汁机</a><a href="javascript:;">料理机</a><a href="javascript:;">电饼铛</a><a href="javascript:;">养生壶/煎药壶</a><a href="javascript:;">酸奶机</a><a href="javascript:;">煮蛋器</a><a href="javascript:;">电水壶/热水瓶</a><a href="javascript:;">电炖锅</a><a href="javascript:;">多用途锅</a><a href="javascript:;">电烧烤炉</a><a href="javascript:;">电热饭盒</a><a href="javascript:;">其它厨房电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">生活电器<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电风扇</a><a href="javascript:;">冷风扇</a><a href="javascript:;">吸尘器</a><a href="javascript:;">净化器</a><a href="javascript:;">扫地机器人</a><a href="javascript:;">加湿器</a><a href="javascript:;">挂烫机/熨斗</a><a href="javascript:;">取暖电器</a><a href="javascript:;">插座</a><a href="javascript:;">电话机</a><a href="javascript:;">净水器</a><a href="javascript:;">饮水机</a><a href="javascript:;">除湿机</a><a href="javascript:;">干衣机</a><a href="javascript:;">清洁机</a><a href="javascript:;">收录/音机</a><a href="javascript:;">其它生活电器</a><a href="javascript:;">生活电器配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">个护健康<i>></i></a></dt>
+                                    <dd><a href="javascript:;">剃须刀</a><a href="javascript:;">口腔护理</a><a href="javascript:;">电吹风</a><a href="javascript:;">美容器</a><a href="javascript:;">卷/直发器</a><a href="javascript:;">理发器</a><a href="javascript:;">剃/脱毛器</a><a href="javascript:;">足浴盆</a><a href="javascript:;">健康秤/厨房秤</a><a href="javascript:;">按摩器</a><a href="javascript:;">按摩椅</a><a href="javascript:;">血压计</a><a href="javascript:;">血糖仪</a><a href="javascript:;">体温计</a><a href="javascript:;">计步器/脂肪检测仪</a><a href="javascript:;">其它健康电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">五金家装<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电动工具</a><a href="javascript:;">手动工具</a><a href="javascript:;">仪器仪表</a><a href="javascript:;">浴霸/排气扇</a><a href="javascript:;">灯具</a><a href="javascript:;">LED灯</a><a href="javascript:;">洁身器</a><a href="javascript:;">水槽</a><a href="javascript:;">水槽</a><a href="javascript:;">龙头</a><a href="javascript:;">淋浴花洒</a><a href="javascript:;">厨卫五金</a><a href="javascript:;">家具五金</a><a href="javascript:;">门铃</a><a href="javascript:;">电气开关</a><a href="javascript:;">插座</a><a href="javascript:;">电工电料</a><a href="javascript:;">监控安防</a><a href="javascript:;">电线/线缆</a></dd>
+                              	</dl>
+                            </div>
+                        </div>
+                        <div class="right">
+                        	<div class="show">
+                            	<ul class="clearfix">
+                                	<li><a href="javascript:;"><img src="images/shou-icon_03.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_05.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_09.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_10.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_11.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_13.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_15.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_16.jpg"></a></li>
+                                </ul>
+                                <div class="mid-icon">
+                                    <a href="javascript:;"><img src="images/577f019cN4ea29161.jpg"></a>
+                                    <a href="javascript:;"><img src="images/shou-icon_19.jpg"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section1 clearfix">
+                        <div class="left">
+                        	<div class="brand">
+                            	<a href="javascript:;">家电狂欢<i>></i></a>
+                            	<a href="javascript:;">品牌日<i>></i></a>
+                            	<a href="javascript:;">家电城<i>></i></a>
+                            	<a href="javascript:;">智能生活馆<i>></i></a>
+                            	<a href="javascript:;">京东净化馆<i>></i></a>
+                            	<a href="javascript:;">京东帮服务店<i>></i></a>
+                            </div>
+                            <div class="menu">
+                            	<dl>
+                                	<dt><a href="javascript:;">大家电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">平板电脑</a><a href="javascript:;">空调</a><a href="javascript:;">冰箱</a><a href="javascript:;">洗衣机</a><a href="javascript:;">家庭影院</a><a href="javascript:;">DVD</a><a href="javascript:;">迷你音响</a><a href="javascript:;">冷柜/冰吧</a><a href="javascript:;">酒柜</a><a href="javascript:;">家电配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨卫大电<i>></i></a></dt>
+                                    <dd><a href="javascript:;">油烟机</a><a href="javascript:;">燃气灶</a><a href="javascript:;">烟灶套装</a><a href="javascript:;">消毒柜</a><a href="javascript:;">洗碗机</a><a href="javascript:;">电热水器</a><a href="javascript:;">燃气热水器</a><a href="javascript:;">嵌入式厨电</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨房小电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">电饭煲</a><a href="javascript:;">微波炉</a><a href="javascript:;">电烤箱</a><a href="javascript:;">电磁炉</a><a href="javascript:;">电压力锅</a><a href="javascript:;">豆浆机</a><a href="javascript:;">咖啡机</a><a href="javascript:;">面包机</a><a href="javascript:;">榨汁机</a><a href="javascript:;">料理机</a><a href="javascript:;">电饼铛</a><a href="javascript:;">养生壶/煎药壶</a><a href="javascript:;">酸奶机</a><a href="javascript:;">煮蛋器</a><a href="javascript:;">电水壶/热水瓶</a><a href="javascript:;">电炖锅</a><a href="javascript:;">多用途锅</a><a href="javascript:;">电烧烤炉</a><a href="javascript:;">电热饭盒</a><a href="javascript:;">其它厨房电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">生活电器<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电风扇</a><a href="javascript:;">冷风扇</a><a href="javascript:;">吸尘器</a><a href="javascript:;">净化器</a><a href="javascript:;">扫地机器人</a><a href="javascript:;">加湿器</a><a href="javascript:;">挂烫机/熨斗</a><a href="javascript:;">取暖电器</a><a href="javascript:;">插座</a><a href="javascript:;">电话机</a><a href="javascript:;">净水器</a><a href="javascript:;">饮水机</a><a href="javascript:;">除湿机</a><a href="javascript:;">干衣机</a><a href="javascript:;">清洁机</a><a href="javascript:;">收录/音机</a><a href="javascript:;">其它生活电器</a><a href="javascript:;">生活电器配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">个护健康<i>></i></a></dt>
+                                    <dd><a href="javascript:;">剃须刀</a><a href="javascript:;">口腔护理</a><a href="javascript:;">电吹风</a><a href="javascript:;">美容器</a><a href="javascript:;">卷/直发器</a><a href="javascript:;">理发器</a><a href="javascript:;">剃/脱毛器</a><a href="javascript:;">足浴盆</a><a href="javascript:;">健康秤/厨房秤</a><a href="javascript:;">按摩器</a><a href="javascript:;">按摩椅</a><a href="javascript:;">血压计</a><a href="javascript:;">血糖仪</a><a href="javascript:;">体温计</a><a href="javascript:;">计步器/脂肪检测仪</a><a href="javascript:;">其它健康电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">五金家装<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电动工具</a><a href="javascript:;">手动工具</a><a href="javascript:;">仪器仪表</a><a href="javascript:;">浴霸/排气扇</a><a href="javascript:;">灯具</a><a href="javascript:;">LED灯</a><a href="javascript:;">洁身器</a><a href="javascript:;">水槽</a><a href="javascript:;">水槽</a><a href="javascript:;">龙头</a><a href="javascript:;">淋浴花洒</a><a href="javascript:;">厨卫五金</a><a href="javascript:;">家具五金</a><a href="javascript:;">门铃</a><a href="javascript:;">电气开关</a><a href="javascript:;">插座</a><a href="javascript:;">电工电料</a><a href="javascript:;">监控安防</a><a href="javascript:;">电线/线缆</a></dd>
+                              	</dl>
+                            </div>
+                        </div>
+                        <div class="right">
+                        	<div class="show">
+                            	<ul class="clearfix">
+                                	<li><a href="javascript:;"><img src="images/shou-icon_03.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_05.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_09.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_10.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_11.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_13.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_15.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_16.jpg"></a></li>
+                                </ul>
+                                <div class="mid-icon">
+                                    <a href="javascript:;"><img src="images/577f019cN4ea29161.jpg"></a>
+                                    <a href="javascript:;"><img src="images/shou-icon_19.jpg"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section1 clearfix">
+                        <div class="left">
+                        	<div class="brand">
+                            	<a href="javascript:;">家电狂欢<i>></i></a>
+                            	<a href="javascript:;">品牌日<i>></i></a>
+                            	<a href="javascript:;">家电城<i>></i></a>
+                            	<a href="javascript:;">智能生活馆<i>></i></a>
+                            	<a href="javascript:;">京东净化馆<i>></i></a>
+                            	<a href="javascript:;">京东帮服务店<i>></i></a>
+                            </div>
+                            <div class="menu">
+                            	<dl>
+                                	<dt><a href="javascript:;">大家电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">平板电脑</a><a href="javascript:;">空调</a><a href="javascript:;">冰箱</a><a href="javascript:;">洗衣机</a><a href="javascript:;">家庭影院</a><a href="javascript:;">DVD</a><a href="javascript:;">迷你音响</a><a href="javascript:;">冷柜/冰吧</a><a href="javascript:;">酒柜</a><a href="javascript:;">家电配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨卫大电<i>></i></a></dt>
+                                    <dd><a href="javascript:;">油烟机</a><a href="javascript:;">燃气灶</a><a href="javascript:;">烟灶套装</a><a href="javascript:;">消毒柜</a><a href="javascript:;">洗碗机</a><a href="javascript:;">电热水器</a><a href="javascript:;">燃气热水器</a><a href="javascript:;">嵌入式厨电</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">厨房小电<i>></i></a></dt>
+                                    <dd><a href="javascript:;"><img src="images/573d8dd9N215dc6c9.jpg"></a><a href="javascript:;">电饭煲</a><a href="javascript:;">微波炉</a><a href="javascript:;">电烤箱</a><a href="javascript:;">电磁炉</a><a href="javascript:;">电压力锅</a><a href="javascript:;">豆浆机</a><a href="javascript:;">咖啡机</a><a href="#">面包机</a><a href="#">榨汁机</a># href="#">料理机</a><a href="javascript:;">电饼铛</a><a href="javascript:;">养生壶/煎药壶</a><a href="javascript:;">酸奶机</a><a href="javascript:;">煮蛋器</a><a href="javascript:;">电水壶/热水瓶</a><a href="javascript:;">电炖锅</a><a href="javascript:;">多用途锅</a><a href="javascript:;">电烧烤炉</a><a href="javascript:;">电热饭盒</a><a href="javascript:;">其它厨房电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">生活电器<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电风扇</a><a href="javascript:;">冷风扇</a><a href="javascript:;">吸尘器</a><a href="javascript:;">净化器</a><a href="javascript:;">扫地机器人</a><a href="javascript:;">加湿器</a><a href="javascript:;">挂烫机/熨斗</a><a href="javascript:;">取暖电器</a><a href="javascript:;">插座</a><a href="javascript:;">电话机</a><a href="javascript:;">净水器</a><a href="javascript:;">饮水机</a><a href="javascript:;">除湿机</a><a href="javascript:;">干衣机</a><a href="javascript:;">清洁机</a><a href="javascript:;">收录/音机</a><a href="javascript:;">其它生活电器</a><a href="javascript:;">生活电器配件</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">个护健康<i>></i></a></dt>
+                                    <dd><a href="javascript:;">剃须刀</a><a href="javascript:;">口腔护理</a><a href="javascript:;">电吹风</a><a href="javascript:;">美容器</a><a href="javascript:;">卷/直发器</a><a href="javascript:;">理发器</a><a href="javascript:;">剃/脱毛器</a><a href="javascript:;">足浴盆</a><a href="javascript:;">健康秤/厨房秤</a><a href="javascript:;">按摩器</a><a href="javascript:;">按摩椅</a><a href="javascript:;">血压计</a><a href="javascript:;">血糖仪</a><a href="javascript:;">体温计</a><a href="javascript:;">计步器/脂肪检测仪</a><a href="javascript:;">其它健康电器</a></dd>
+                                </dl>
+                            	<dl>
+                                	<dt><a href="javascript:;">五金家装<i>></i></a></dt>
+                                    <dd><a href="javascript:;">电动工具</a><a href="javascript:;">手动工具</a><a href="javascript:;">仪器仪表</a><a href="javascript:;">浴霸/排气扇</a><a href="javascript:;">灯具</a><a href="javascript:;">LED灯</a><a href="javascript:;">洁身器</a><a href="javascript:;">水槽</a><a href="javascript:;">水槽</a><a href="javascript:;">龙头</a><a href="javascript:;">淋浴花洒</a><a href="javascript:;">厨卫五金</a><a href="javascript:;">家具五金</a><a href="javascript:;">门铃</a><a href="javascript:;">电气开关</a><a href="javascript:;">插座</a><a href="javascript:;">电工电料</a><a href="javascript:;">监控安防</a><a href="javascript:;">电线/线缆</a></dd>
+                              	</dl>
+                            </div>
+                        </div>
+                        <div class="right">
+                        	<div class="show">
+                            	<ul class="clearfix">
+                                	<li><a href="javascript:;"><img src="images/shou-icon_03.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_05.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_09.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_10.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_11.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_13.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_15.jpg"></a></li>
+                                	<li><a href="javascript:;"><img src="images/shou-icon_16.jpg"></a></li>
+                                </ul>
+                                <div class="mid-icon">
+                                    <a href="javascript:;"><img src="images/577f019cN4ea29161.jpg"></a>
+                                    <a href="javascript:;"><img src="images/shou-icon_19.jpg"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="banner" id='banner_one'>
+            	<ul>
+                	<li><a href="javascript:;"><img src="images/574c0514Ne3530f5d.jpg"></a></li>
+                    <li><a href="javascript:;"><img src="images/l-lunbo-2.jpg"></a></li>
+                    <li><a href="javascript:;"><img src="images/l-lunbo-6.jpg"></a></li>
+                    <li><a href="javascript:;"><img src="images/l-lunbo-3.jpg"></a></li>
+                </ul>
+                <ol>
+                    <li class="ac">1</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li>4</li>
+    			</ol>
+                <a href="javascript:;" class="prevBtn">&laquo;</a>
+                <a href="javascript:;" class="nextBtn">&laquo;</a>
+            </div>
+            <div class="page_text">
+            	<div class="news">
+                	<div class="title">
+                    	<h2>京东快报</h2><a href="javascript:;">更多 ></a>
+                    </div>
+                    <ul>
+                    	<li><a href="javascript:;"><span>[特惠]</span>【七夕特价】好礼低至9.9元！</a></li>
+                    	<li><a href="javascript:;"><span>[公告]</span>广东福建因台风影响配送延迟,配送日期顺延两日</a></li>
+                    	<li><a href="javascript:;"><span>[特惠]</span>京东超市男人狂欢季</a></li>
+                    	<li><a href="javascript:;"><span>[公告]</span>丹寨馆百日庆 传承文化邀你赏</a></li>
+                    	<li><a href="javascript:;"><span>[特惠]</span>夏日么么哒，礼盒第二件半价</a></li>
+                    </ul>
+                </div>
+                <div class="icon">
+                	<ul>
+                    	<li><a href="javascript:;"><i></i><span>话费</span></a></li>
+                    	<li><a href="javascript:;"><i class="er"></i><span>机票</span></a></li>
+                    	<li><a href="javascript:;"><i class="san"></i><span>电影票</span></a></li>
+                    	<li><a href="javascript:;"><i class="si"></i><span>游戏</span></a></li>
+                    	<li><a href="javascript:;"><i class="wu"></i><span>彩票</span></a></li>
+                    	<li><a href="javascript:;"><i class="liu"></i><span>加油卡</span></a></li>
+                    	<li><a href="javascript:;"><i class="qi"></i><span>酒店</span></a></li>
+                    	<li><a href="javascript:;"><i class="ba"></i><span>火车票</span></a></li>
+                    	<li><a href="javascript:;"><i class="jiu"></i><span>众筹</span></a></li>
+                    	<li><a href="javascript:;"><i class="shi"></i><span>理财</span></a></li>
+                    	<li><a href="javascript:;"><i class="shiyi"></i><span>礼品卡</span></a></li>
+                    	<li><a href="javascript:;"><i class="shier"></i><span>白条</span></a></li>
+                    </ul>
+                </div>
+                <div class="pic"><a href="javascript:;"><img src="images/577cd92fN2de2d25a.jpg"></a></div>
+            </div>
+        </div>
+        <div class="page_bot clearfix">
+        	<div class="left"><a href="javascript:;"></a></div>
+            <div class="right">
+            	<ul>
+                	<li><a href="javascript:;"><img src="images/jd2_03.jpg"></a></li>
+                	<li><a href="javascript:;"><img src="images/jd2_05.jpg"></a></li>
+                	<li><a href="javascript:;"><img src="images/jd2_06.jpg"></a></li>
+                	<li><a href="javascript:;"><img src="images/jd2_08.jpg"></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page2">
+	<div class="title">
+	  <h2>猜你喜欢</h2><a href="javascript:;"></a>
+    </div>
+    <div class="con">
+    	<i></i>
+        <ul>
+        	<li><a href="javascript:;"><img src="images/like_03.jpg"><div class="text"><p>金士顿(kingsto)V300 120GSATA3固态硬盘</p><span>¥329.00</span></div></a></li>
+        	<li><a href="javascript:;"><img src="images/like_05.jpg"><div class="text"><p>金士顿(kingsto)V300 120GSATA3固态硬盘</p><span>¥329.00</span></div></a></li>
+        	<li><a href="javascript:;"><img src="images/like_07.jpg"><div class="text"><p>金士顿(kingsto)V300 120GSATA3固态硬盘</p><span>¥329.00</span></div></a></li>
+        	<li><a href="javascript:;"><img src="images/like_09.jpg"><div class="text"><p>金士顿(kingsto)V300 120GSATA3固态硬盘</p><span>¥329.00</span></div></a></li>
+        	<li><a href="javascript:;"><img src="images/like_11.jpg"><div class="text"><p>金士顿(kingsto)V300 120GSATA3固态硬盘</p><span>¥329.00</span></div></a></li>
+        	<li><a href="javascript:;"><img src="images/like_13.jpg"><div class="text"><p>金士顿(kingsto)V300 120GSATA3固态硬盘</p><span>¥329.00</span></div></a></li>
+        </ul>
+    </div>
+</div>
+<div class="page3">
+	<h3>京东 · 品质生活</h3>
+	<div class="con">
+    	<div class="text">
+        	<div class="text-top">
+            	<a href="javascript:;">
+                    <h4>新发现</h4>
+                    <div class="pic"><img src="images/57a0a62fNd04717a8.jpg"></div>
+                    <div class="font">
+                        <h5>索尼PS VR</h5>
+                        <p>限时抢购</p>
+                        <span>给你现实的临场感</span>
+                    </div>
+                </a>
+            </div>
+            <div class="text-bot">
+            	<a href="javascript:;"><div class="pic"><img src="images/57a08d53Naf7f716c.jpg"></div>
+                	<div class="font">
+                        <h5>新趋势</h5>
+                        <p>斯巴达极限系列</p>
+                        <span>芬兰手工打造</span>
+                    </div>
+                </a>
+            	<a href="javascript:;" class="er"><div class="pic"><img src="images/577b75faNb5780d1c.jpg"></div>
+                	<div class="font">
+                        <h5>限时秒杀</h5>
+                        <p>搞“机”看眼缘</p>
+                        <span>小米尊享1899</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    	<div class="text box">
+        	<div class="text-top">
+            	<a href="javascript:;">
+                    <h4>新发现</h4>
+                    <div class="pic"><img src="images/577b7f77N7e736645.jpg"></div>
+                    <div class="font">
+                        <h5>达人推荐</h5>
+                        <p>暑期笔电买买买</p>
+                        <span>硬货直降2000</span>
+                    </div>
+                </a>
+            </div>
+            <div class="text-bot">
+            	<a href="javascript:;">
+            	<div class="pic"><img src="images/57d652ebNaf14d666.jpg"></div>
+                	<div class="font">
+                        <h5>新趋势</h5>
+                        <p>斯巴达极限系列</p>
+                        <span>芬兰手工打造</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+            	<div class="text">
+        	<div class="text-top">
+            	<a href="javascript:;">
+                    <h4>新发现</h4>
+                    <div class="pic"><img src="images/57a0a62fNd04717a8.jpg"></div>
+                    <div class="font">
+                        <h5>索尼PS VR</h5>
+                        <p>限时抢购</p>
+                        <span>给你现实的临场感</span>
+                    </div>
+                </a>
+            </div>
+            <div class="text-bot">
+            	<a href="javascript:;"><div class="pic"><img src="images/57a08d53Naf7f716c.jpg"></div>
+                	<div class="font">
+                        <h5>新趋势</h5>
+                        <p>斯巴达极限系列</p>
+                        <span>芬兰手工打造</span>
+                    </div>
+                </a>
+            	<a href="javascript:;" class="er"><div class="pic"><img src="images/577b75faNb5780d1c.jpg"></div>
+                	<div class="font">
+                        <h5>限时秒杀</h5>
+                        <p>搞“机”看眼缘</p>
+                        <span>小米尊享1899</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="icon">
+        	<div class="i_left">
+            	<ul>
+                	<li><a href="javascript:;"><img src="images/5786128bN6232ac1b.jpg"></a></li>
+                	<li><a href="javascript:;"><img src="images/5762439eNad1cbdfe.jpg"></a></li>
+                	<li><a href="javascript:;"><img src="images/56b17227N33396de6.jpg"></a></li>
+                	<li><a href="javascript:;"><img src="images/564d4328N6fb33fc8.png"></a></li>
+                	<li><a href="javascript:;"><img src="images/56fe1ec7N0c3302e2.jpg"></a></li>
+                	<li><a href="javascript:;"><img src="images/563b3484N9ba68e13.jpg"></a></li>
+                	<li><a href="javascript:;"><img src="images/56b2f385N8e4eb051.jpg"></a></li>
+                </ul>
+            </div>
+            <div class="i_left i_right">
+            	 <ul>
+                	<li><a href="javascript:;"><img src="images/563b3484N9ba68e13.jpg"></a></li>
+                	<li><a href="javascript:;"><img src="images/56a5cd77N8d890c92.jpg"></a></li>
+                	<li><a href="javascript:;"><img src="images/569dce20N87f111d4.jpg"></a></li>
+                	<li><a href="javascript:;"><img src="images/56fe1ec7N0c3302e2.jpg"></a></li>
+                	<li><a href="javascript:;"><img src="images/56724bebN11ce6e78.jpg"></a></li>
+                	<li><a href="javascript:;"><img src="images/569dce20N87f111d4.jpg"></a></li>
+                	<li><a href="javascript:;"><img src="images/5786128bN6232ac1b.jpg"></a></li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="advert">
+	<ul>
+    	<li><a href="javascript:;"><img src="images/57e4dec5Nf3cbd1aa.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/57e90458Nc99f61ed.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/579862f4N69e8f478.jpg"></a></li>
+    </ul>
+</div>
+<div class="page4">
+	<div class="title clearfix">
+    	<h2><span>1F</span>服装鞋包</h2>
+        <div class="nav">
+        	<ul>
+            	<li><a href="javascript:;">大牌</a><span></span></li>
+            	<li><a href="javascript:;">男装</a><span></span></li>
+            	<li><a href="javascript:;">女装</a><span></span></li>
+            	<li><a href="javascript:;">鞋靴</a><span></span></li>
+            	<li><a href="javascript:;">箱包</a><span></span></li>
+            	<li><a href="javascript:;">内衣配饰</a><span></span></li>
+            	<li><a href="javascript:;">珠宝首饰</a><span></span></li>
+            	<li><a href="javascript:;">奢品礼品</a><span></span></li>
+            	<li><a href="javascript:;">奢华腕表</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="con clearfix">
+    	<div class="left">
+        	<div class="pic"><a href="javascript:;"><img src="images/57e7e7b5N337c30af.jpg"></a>
+            	<div class="fukuang">
+                	<ul>
+                    	<li><a href="javascript:;">男装</a></li>
+                    	<li class="er"><a href="javascript:;">女装</a></li>
+                    	<li class="san"><a href="javascript:;">内衣</a></li>
+                    	<li class="si"><a href="javascript:;">鞋靴</a></li>
+                    	<li class="wu"><a href="javascript:;">箱包</a></li>
+                    	<li class="liu"><a href="javascript:;">奢侈品</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="list clearfix">
+            	<div class="list-1">
+                	<a href="javascript:;">潮流服装</a>
+                	<a href="javascript:;">丝巾</a>
+                	<a href="javascript:;">服装城</a>
+                	<a href="javascript:;">品质男鞋</a>
+                	<a href="javascript:;">时尚女鞋</a>
+                	<a href="javascript:;">精品男装</a>
+                	<a href="javascript:;">舒适睡衣</a>
+                	<a href="javascript:;">奢侈品</a>
+                </div>
+                <div class="list-2">
+                    <a href="javascript:;">菩提手串</a>
+                	<a href="javascript:;">水晶项链</a>
+                	<a href="javascript:;">时尚女包</a>
+                	<a href="javascript:;">精品男包</a>
+                	<a href="javascript:;">韦氏手表</a>
+                	<a href="javascript:;">奢品名表</a>
+                	<a href="javascript:;">国表经典</a>
+                	<a href="javascript:;">潮流日表</a>
+                </div>
+            </div>
+            <div class="down"><a href="javascript:;"><img src="images/57e7e7eaN99f474af.jpg"></a></div>
+        </div>
+        <div class="mid">
+        	<div class="pic-1"><a href="javascript:;"><img src="images/floor1-10.jpg"></a></div>
+            <div class="pic-2"><a href="javascript:;"><img src="images/f1-lunbo-4.jpg"></a></div>
+            <div class="pic-3"><a href="javascript:;"><img src="images/floor1-8.jpg"></a></div>
+        </div>
+        <div class="right clearfix">
+        	<ul>
+            	<li><a href="javascript:;"><img src="images/floor1-1.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/floor1-2.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/floor1-3.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/floor1-4.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/floor1-5.jpg"></a></li>
+            	<li class="long"><a href="javascript:;"><img src="images/floor1-6.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/floor1-7.jpg"></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="paizi">
+	<ul>
+    	<li><a href="javascript:;"><img src="images/f-b-1.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f4-b-8.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f7-b-0.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f-b-4.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/f10-b-7.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f-b-2.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/f-b-3.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f10-b-0.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f7-b-0.jpg"></a></li>
+    	<li><a href="javascript:;" class="last"><img src="images/f9-b-7.jpg"></a></li>
+    </ul>
+</div>
+<div class="page4">
+	<div class="title clearfix">
+    	<h2><span>2F</span>个护美妆</h2>
+        <div class="nav">
+        	<ul>
+            	<li><a href="javascript:;">热门</a><span></span></li>
+            	<li><a href="javascript:;">国际大牌</a><span></span></li>
+            	<li><a href="javascript:;">国妆名品</a><span></span></li>
+            	<li><a href="javascript:;">个人护理</a><span></span></li>
+            	<li><a href="javascript:;">清洁用品</a><span></span></li>
+            	<li><a href="javascript:;">纸品湿巾</a><span></span></li>
+            	<li><a href="javascript:;">香水彩妆</a><span></span></li>
+            	<li><a href="javascript:;">热销面膜</a><span></span></li>
+            	<li><a href="javascript:;">男士精品</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="con clearfix">
+    	<div class="left loft-2">
+        	<div class="pic"><a href="javascript:;"><img src="images/floor02_ad01.jpg"></a>
+            	<div class="fukuang kuang-2">
+                	<ul class="ul-2">
+                    	<li><a href="javascript:;">美妆特卖</a></li>
+                    	<li class="er"><a href="javascript:;">个户清洁</a></li>
+                    	<li class="san"><a href="javascript:;">美妆商城</a></li>
+                    	<li class="si"><a href="javascript:;">官方直售</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="loft-2-bot">
+            	<p>出游妆必备超低秒杀></p>
+                <p>洁净动力 满199减100></p>
+                <a href="javascript:;">国际馆</a><a href="javascript:;">国妆馆</a><a href="javascript:;">全球购馆</a><a href="javascript:;">洗护馆</a><a href="javascript:;">清洁馆</a><a href="javascript:;">纸品馆</a>
+            </div>
+        </div>
+        <div class="mid mid-2">
+        	<div class="pic-1"><a href="javascript:;"><img src="images/hot01.jpg"></a></div>
+            <div class="pic-2"><a href="javascript:;"><img src="images/f2-lunbo-1.2.jpg"></a></div>
+        </div>
+        <div class="right clearfix rig-2">
+        	<ul>
+            	<li class="shang"><a href="javascript:;"><img src="images/hot02.jpg"></a></li>
+            	<li class="shang"><a href="javascript:;"><img src="images/hot03.jpg"></a></li>
+            	<li class="shang"><a href="javascript:;"><img src="images/hot04.jpg"></a></li>
+            </ul>
+        	<ul>
+            	<li class="xia"><a href="javascript:;"><img src="images/hot06.jpg"></a></li>
+            	<li class="xia"><a href="javascript:;"><img src="images/hot07.jpg"></a></li>
+            	<li class="xia"><a href="javascript:;"><img src="images/hot08.jpg"></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="paizi">
+	<ul>
+    	<li><a href="javascript:;"><img src="images/head-shoulders.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f7-b-7.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/blue-moon.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f-b-4.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/hela.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/3m.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/htefaseshop.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/olay.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/marubi.png"></a></li>
+    	<li><a href="javascript:;" class="last"><img src="images/memebox.jpg"></a></li>
+    </ul>
+</div>
+<div class="advert">
+	<ul>
+    	<li><a href="javascript:;"><img src="images/floor02_ad02.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/floor02_ad03.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/floor02_ad04.jpg"></a></li>
+    </ul>
+</div>
+<div class="page4">
+	<div class="title clearfix">
+    	<h2><span>3F</span>手机通讯</h2>
+        <div class="nav">
+        	<ul>
+            	<li><a href="javascript:;">热门</a><span></span></li>
+            	<li><a href="javascript:;">品质优选</a><span></span></li>
+            	<li><a href="javascript:;">新机尝鲜</a><span></span></li>
+            	<li><a href="javascript:;">高性价比</a><span></span></li>
+            	<li><a href="javascript:;">口碑推荐</a><span></span></li>
+            	<li><a href="javascript:;">合约机</a><span></span></li>
+            	<li><a href="javascript:;">手机卡</a><span></span></li>
+            	<li><a href="javascript:;">店铺精选</a><span></span></li>
+            	<li><a href="javascript:;">手机配件</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="con clearfix">
+    	<div class="left loft-3">
+        	<div class="pic"><a href="javascript:;"><img src="images/57eb6490Ne5239258.jpg"></a>
+            	<div class="fukuang kuang-3">
+                	<ul class="ul-3">
+                    	<li><a href="javascript:;">手机</a></li>
+                    	<li class="er"><a href="javascript:;">营业厅</a></li>
+                    	<li class="san"><a href="javascript:;">配件</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="list clearfix">
+            	<div class="list-1">
+                	<a href="javascript:;"><p>MotoZ享24期免息></p></a>
+                	<a href="javascript:;"><p>小辣椒新品领券减200></p></a>
+                	<a href="javascript:;">手机通讯</a>
+                	<a href="javascript:;">以旧换新</a>
+                	<a href="javascript:;">玩3c频道</a>
+                	<a href="javascript:;">指纹识别</a>
+                	<a href="javascript:;">双卡双待</a>
+                	<a href="javascript:;">老人机</a>
+                	<a href="javascript:;">高清屏</a>
+                	<a href="javascript:;">金属机身</a>
+                </div>
+                <div class="list-2">
+                    <a href="javascript:;"><p>1元享800M流量></p></a>
+                	<a href="javascript:;"><p>iPhone5s低至1999></p></a>
+                    <a href="javascript:;">精品特惠</a>
+                	<a href="javascript:;">iPhone7现货</a>
+                	<a href="javascript:;">专享特惠</a>
+                	<a href="javascript:;">4G套餐</a>
+                	<a href="javascript:;">数据线</a>
+                	<a href="javascript:;">360手机</a>
+                	<a href="javascript:;">2件8折</a>
+                	<a href="javascript:;">苹果7壳膜</a>
+                </div>
+            </div>
+        </div>
+        <div class="mid mid-3">
+        	<div class="pic-1"><a href="javascript:;"><img src="images/f2-hot-1.jpg"></a></div>
+            <ul>
+            	<li><a href="javascript:;"><img src="images/f2-hot-6.jpg"></a></a></li>
+            	<li><a href="javascript:;"><img src="images/f2-hot-7.jpg"></a></a></li>
+            </ul>
+        </div>
+        <div class="right clearfix rig-3">
+        	<ul>
+            	<li><a href="javascript:;"><img src="images/f2-hot-2.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f2-hot-3.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f2-hot-4.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f2-hot-5.jpg"></a></li>
+            	<li class="gao"><a href="javascript:;"><img src="images/f2-hot-8.jpg"></a></li>
+            	<li class="gao"><a href="javascript:;"><img src="images/f2-hot-9.jpg"></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="paizi">
+	<ul>
+    	<li><a href="javascript:;"><img src="images/f2-b-1.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/f2-b-2.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/f2-b-3.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f2-b-4.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f2-b-5.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f2-b-6.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/f2-b-7.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/f2-b-8.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f2-b-9.png"></a></li>
+    	<li><a href="javascript:;" class="last"><img src="images/f2-b-0.jpg"></a></li>
+    </ul>
+</div>
+<div class="page4">
+	<div class="title clearfix">
+    	<h2><span>4F</span>家用电器</h2>
+        <div class="nav">
+        	<ul>
+            	<li><a href="javascript:;">热门</a><span></span></li>
+            	<li><a href="javascript:;">大家电</a><span></span></li>
+            	<li><a href="javascript:;">生活电器</a><span></span></li>
+            	<li><a href="javascript:;">厨房电器</a><span></span></li>
+            	<li><a href="javascript:;">个护健康</a><span></span></li>
+            	<li><a href="javascript:;">应季电器</a><span></span></li>
+            	<li><a href="javascript:;">空净/净水</a><span></span></li>
+            	<li><a href="javascript:;">新奇特</a><span></span></li>
+            	<li><a href="javascript:;">高端电器</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="con clearfix">
+    	<div class="left loft-4">
+        	<div class="pic"><a href="javascript:;"><img src="images/f4-p-1.jpg"></a>
+            	<div class="fukuang kuang-4">
+                	<ul class="ul-4">
+                    	<li><a href="javascript:;">家电城</a></li>
+                    	<li class="er"><a href="javascript:;">家电服务</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="list clearfix">
+            	<div class="list-1">
+                	<a href="javascript:;"><p>大家电配送说明></p></a>
+                	<a href="javascript:;"><p>老板钜惠赠好礼></p></a>
+                	<a href="javascript:;">节能补贴</a>
+                	<a href="javascript:;">烟灶套装</a>
+                	<a href="javascript:;">扫地机器人</a>
+                	<a href="javascript:;">平板电视</a>
+                	<a href="javascript:;">高能效空调</a>
+                	<a href="javascript:;">风冷冰箱</a>
+                	<a href="javascript:;">滚筒洗衣机</a>
+                	<a href="javascript:;">电热水器</a>
+                </div>
+                <div class="list-2">
+                    <a href="javascript:;"><p>最高补贴800元></p></a>
+                	<a href="javascript:;"><p>空调领券可减500></p></a>
+                    <a href="javascript:;">4K电视</a>
+                	<a href="javascript:;">空气净化器</a>
+                	<a href="javascript:;">原汁机</a>
+                	<a href="javascript:;">IH电饭煲</a>
+                	<a href="javascript:;">声波牙刷</a>
+                	<a href="javascript:;">三刀头剃刀</a>
+                	<a href="javascript:;">纯水净化器</a>
+                	<a href="javascript:;">电风扇</a>
+                </div>
+            </div>
+        </div>
+        <div class="mid mid-4">
+        	<div class="pic-1"><a href="javascript:;"><img src="images/f4-p-2.jpg"></a></div>
+            <ul>
+            	<li><a href="javascript:;"><img src="images/f4-p-7.jpg"></a></a></li>
+            	<li><a href="javascript:;"><img src="images/f4-p-8.jpg"></a></a></li>
+            </ul>
+        </div>
+        <div class="right clearfix rig-4">
+        	<ul>
+            	<li><a href="javascript:;"><img src="images/f4-p-3.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f4-p-4.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f4-p-5.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f4-p-6.jpg"></a></li>
+            	<li class="gao"><a href="javascript:;"><img src="images/f4-p-9.jpg"></a></li>
+            	<li class="gao"><a href="javascript:;"><img src="images/f4-p-0.jpg"></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="paizi">
+	<ul>
+    	<li><a href="javascript:;"><img src="images/f4-b-1.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f4-b-2.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f4-b-3.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/f4-b-4.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/f4-b-5.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f4-b-6.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f4-b-7.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f4-b-8.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f4-b-9.jpg"></a></li>
+    	<li><a href="javascript:;" class="last"><img src="images/f4-b-0.jpg"></a></li>
+    </ul>
+</div>
+<div class="page4">
+	<div class="title clearfix">
+    	<h2><span>5F</span>电脑数码</h2>
+        <div class="nav">
+        	<ul>
+            	<li><a href="javascript:;">热门</a><span></span></li>
+            	<li><a href="javascript:;">电脑/平板</a><span></span></li>
+            	<li><a href="javascript:;">潮流影音</a><span></span></li>
+            	<li><a href="javascript:;">智能/外设</a><span></span></li>
+            	<li><a href="javascript:;">DIY硬件</a><span></span></li>
+            	<li><a href="javascript:;">电竞游戏</a><span></span></li>
+            	<li><a href="javascript:;">办公/网络</a><span></span></li>
+            	<li><a href="javascript:;">文具电教</a><span></span></li>
+            	<li><a href="javascript:;">精选配件</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="con clearfix">
+    	<div class="left loft-5">
+        	<div class="pic"><a href="javascript:;"><img src="images/f5-p-0.jpg"></a>
+            	<div class="fukuang kuang-5">
+                	<ul class="ul-5">
+                    	<li><a href="javascript:;">新品抢鲜</a></li>
+                    	<li class="er"><a href="javascript:;">品牌馆</a></li>
+                    	<li class="san"><a href="javascript:;">玩3C</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="list clearfix">
+            	<div class="list-1">
+                	<a href="javascript:;"><p>光污染 全铝 玻璃></p></a>
+                	<a href="javascript:;"><p>送LOL 永久皮肤></p></a>
+                	<a href="javascript:;">SSD硬盘</a>
+                	<a href="javascript:;">显示器</a>
+                	<a href="javascript:;">游戏本</a>
+                	<a href="javascript:;">小新Air Pro</a>
+                	<a href="javascript:;">机械键盘</a>
+                	<a href="javascript:;">台式机</a>
+                	<a href="javascript:;">3D投影电视</a>
+                	<a href="javascript:;">学生文具</a>
+                </div>
+                <div class="list-2">
+                    <a href="javascript:;"><p>热卖单品加时特惠></p></a>
+                	<a href="javascript:;"><p>京东摄影社区></p></a>
+                    <a href="javascript:;">影音大促</a>
+                	<a href="javascript:;">儿童手表</a>
+                	<a href="javascript:;">平板二合一</a>
+                	<a href="javascript:;">相机大促</a>
+                	<a href="javascript:;">语音电视盒</a>
+                	<a href="javascript:;">玩智能</a>
+                	<a href="javascript:;">组装电脑</a>
+                	<a href="javascript:;">满150-50</a>
+                </div>
+            </div>
+        </div>
+        <div class="mid mid-5">
+        	<div class="pic-1"><a href="javascript:;"><img src="images/f5-p-1.jpg"></a></div>
+            <ul>
+            	<li><a href="javascript:;"><img src="images/f5-p-6.jpg"></a></a></li>
+            	<li><a href="javascript:;"><img src="images/f5-p-7.jpg"></a></a></li>
+            </ul>
+        </div>
+        <div class="right clearfix rig-5">
+        	<ul>
+            	<li><a href="javascript:;"><img src="images/f5-p-2.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f5-p-3.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f5-p-4.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f5-p-5.jpg"></a></li>
+            	<li class="gao"><a href="javascript:;"><img src="images/f5-p-8.jpg"></a></li>
+            	<li class="gao"><a href="javascript:;"><img src="images/f5-p-9.jpg"></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="paizi">
+	<ul>
+    	<li><a href="javascript:;"><img src="images/f5-b-1.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/f5-b-2.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f5-b-3.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f5-b-4.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/f5-b-5.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f5-b-6.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/f5-b-7.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f5-b-8.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f5-b-9.jpg"></a></li>
+    	<li><a href="javascript:;" class="last"><img src="images/f5-b-0.jpg"></a></li>
+    </ul>
+</div>
+<div class="advert">
+	<ul>
+    	<li><a href="javascript:;"><img src="images/f5-a-1.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f5-a-2.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/f5-a-3.jpg"></a></li>
+    </ul>
+</div>
+<div class="page4">
+	<div class="title clearfix">
+    	<h2><span>6F</span>服装鞋包</h2>
+        <div class="nav">
+        	<ul>
+            	<li><a href="javascript:;">热门</a><span></span></li>
+            	<li><a href="javascript:;">打牌速递</a><span></span></li>
+            	<li><a href="javascript:;">潮牌新品</a><span></span></li>
+            	<li><a href="javascript:;">运动鞋服</a><span></span></li>
+            	<li><a href="javascript:;">健身训练</a><span></span></li>
+            	<li><a href="javascript:;">休闲户外</a><span></span></li>
+            	<li><a href="javascript:;">智能运动</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="con clearfix">
+    	<div class="left loft-6">
+        	<div class="pic"><a href="javascript:;"><img src="images/f6-p-1.jpg"></a>
+            	<div class="fukuang kuang-6">
+                	<ul class="ul-6">
+                    	<li><a href="javascript:;">运动城</a></li>
+                    	<li class="er"><a href="javascript:;">炫酷骑行</a></li>
+                    	<li class="san"><a href="javascript:;">运动鞋服</a></li>
+                    	<li class="si"><a href="javascript:;">户外鞋服</a></li>
+                    </ul>
+                </div>
+            </div>
+            	<div class="loft-6-bot">
+                	<p>骑向里约！></p>
+                	<p>里约盛惠 领跑抢先></p>
+                	<a href="javascript:;">户外馆</a>
+                	<a href="javascript:;">折叠车</a>
+                	<a href="javascript:;">跑步鞋</a>
+                	<a href="javascript:;">智能穿戴</a>
+                	<a href="javascript:;">羽毛球拍</a>
+                	<a href="javascript:;">篮球馆</a>
+                </div>
+        </div>
+        <div class="mid mid-6">
+			<ul class="ul-6-left">
+            	<li><a href="javascript:;"><img src="images/f6-p-2.jpg"></a></a></li>
+            	<li><a href="javascript:;"><img src="images/f6-p-6.jpg"></a></a></li>
+            </ul>
+			<ul class="ul-6-right">
+            	<li><a href="javascript:;"><img src="images/f6-p-3.jpg"></a></a></li>
+            	<li><a href="javascript:;"><img src="images/f6-p-7.jpg"></a></a></li>
+            </ul>
+        </div>
+        <div class="right clearfix rig-6">
+        	<ul>
+            	<li><a href="javascript:;"><img src="images/f6-p-4.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f6-p-5.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f6-p-8.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f6-p-9.jpg"></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="paizi">
+	<ul>
+    	<li><a href="javascript:;"><img src="images/f6-b-1.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f6-b-2.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f6-b-3.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f6-b-4.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/f6-b-5.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/f6-b-6.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/f6-b-7.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f6-b-8.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f6-b-9.jpg"></a></li>
+    	<li><a href="javascript:;" class="last"><img src="images/f6-b-0.png"></a></li>
+    </ul>
+</div>
+<div class="page4">
+	<div class="title clearfix">
+    	<h2><span>7F</span>居家生活</h2>
+        <div class="nav">
+        	<ul>
+            	<li><a href="javascript:;">热门</a><span></span></li>
+            	<li><a href="javascript:;">家装建材</a><span></span></li>
+            	<li><a href="javascript:;">品质家具</a><span></span></li>
+            	<li><a href="javascript:;">厨房用品</a><span></span></li>
+            	<li><a href="javascript:;">床上用品</a><span></span></li>
+            	<li><a href="javascript:;">居家百货</a><span></span></li>
+            	<li><a href="javascript:;">大牌名品</a><span></span></li>
+            	<li><a href="javascript:;">装修定制</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="con clearfix">
+    	<div class="left loft-7">
+        	<div class="pic"><a href="javascript:;"><img src="images/f7-p-1.jpg"></a>
+            	<div class="fukuang kuang-7">
+                	<ul class="ul-7">
+                    	<li><a href="javascript:;">家装城</a></li>
+                    	<li class="er"><a href="javascript:;">国际家居</a></li>
+                    	<li class="san"><a href="javascript:;">定制家</a></li>
+                    	<li class="si"><a href="javascript:;">家装社区</a></li>
+                    </ul>
+                </div>
+            </div>
+            	<div class="loft-7-bot">
+                	<p>设计师 装点理想家></p>
+                	<p>家居狂欢跨店4免1></p>
+                	<a href="javascript:;">定制窗帘</a>
+                	<a href="javascript:;">地板</a>
+                	<a href="javascript:;">锅具</a>
+                	<a href="javascript:;">瓷砖</a>
+                	<a href="javascript:;">欧美家具</a>
+                	<a href="javascript:;">收纳</a>
+                	<a href="javascript:;">装修</a>
+                	<a href="javascript:;">门店</a>
+                </div>
+        </div>
+        <div class="mid mid-7">
+			<ul class="ul-7-left">
+            	<li><a href="javascript:;"><img src="images/f7-p-2.jpg"></a></a></li>
+            	<li><a href="javascript:;"><img src="images/f7-p-6.jpg"></a></a></li>
+            </ul>
+			<ul class="ul-7-right">
+            	<li><a href="javascript:;"><img src="images/f7-p-4.jpg"></a></a></li>
+            	<li><a href="javascript:;"><img src="images/f7-p-5.jpg"></a></a></li>
+            </ul>
+        </div>
+        <div class="right clearfix rig-7">
+        	<ul>
+            	<li><a href="javascript:;"><img src="images/f7-p-6.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f7-p-7.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f7-p-8.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f7-p-9.jpg"></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="paizi">
+	<ul>
+    	<li><a href="javascript:;"><img src="images/f7-b-1.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f7-b-2.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/f7-b-3.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/f7-b-4.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f7-b-5.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f7-b-6.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f7-b-7.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f7-b-8.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/f7-b-9.png"></a></li>
+    	<li><a href="javascript:;" class="last"><img src="images/f7-b-0.jpg"></a></li>
+    </ul>
+</div>
+<div class="page4">
+	<div class="title clearfix">
+    	<h2><span>8F</span>母婴玩具</h2>
+        <div class="nav">
+        	<ul>
+            	<li><a href="javascript:;">热门</a><span></span></li>
+            	<li><a href="javascript:;">奶粉辅食</a><span></span></li>
+            	<li><a href="javascript:;">尿裤湿巾</a><span></span></li>
+            	<li><a href="javascript:;">洗护喂养</a><span></span></li>
+            	<li><a href="javascript:;">童装童鞋</a><span></span></li>
+            	<li><a href="javascript:;">童车童床</a><span></span></li>
+            	<li><a href="javascript:;">寝居服饰</a><span></span></li>
+            	<li><a href="javascript:;">妈妈专区</a><span></span></li>
+            	<li><a href="javascript:;">玩具乐器</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="con clearfix">
+    	<div class="left loft-8">
+        	<div class="pic"><a href="javascript:;"><img src="images/f8-p-1.jpg"></a>
+            	<div class="fukuang kuang-8">
+                	<ul class="ul-8">
+                    	<li><a href="javascript:;">母婴用品</a></li>
+                    	<li class="er"><a href="javascript:;">尿裤湿巾</a></li>
+                    	<li class="san"><a href="javascript:;">奶粉辅食</a></li>
+                    	<li class="si"><a href="javascript:;">童装童鞋</a></li>
+                    </ul>
+                </div>
+            </div>
+            	<div class="loft-8-bot">
+                	<p>秋冬尚新满299减50></p>
+                	<p>新安怡199减100></p>
+                	<a href="javascript:;">辅食</a>
+                	<a href="javascript:;">Moony尿裤</a>
+                	<a href="javascript:;">玩具</a>
+                	<a href="javascript:;">袋鼠妈妈</a>
+                	<a href="javascript:;">NUK奶瓶</a>
+                	<a href="javascript:;">300-100</a>
+                </div>
+        </div>
+        <div class="mid mid-8">
+			<ul class="ul-8-left">
+            	<li><a href="javascript:;"><img src="images/f8-p-2.jpg"></a></a></li>
+            	<li><a href="javascript:;"><img src="images/f8-p-3.jpg"></a></a></li>
+            </ul>
+			<ul class="ul-8-right">
+            	<li><a href="javascript:;"><img src="images/f8-p-4.jpg"></a></a></li>
+            	<li><a href="javascript:;"><img src="images/f8-p-5.jpg"></a></a></li>
+            </ul>
+        </div>
+        <div class="right clearfix rig-8">
+        	<ul>
+            	<li><a href="javascript:;"><img src="images/f8-p-6.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f8-p-7.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f8-p-8.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f8-p-9.jpg"></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="paizi">
+	<ul>
+    	<li><a href="javascript:;"><img src="images/f8-b-1.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f8-b-2.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f8-b-3.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f8-b-4.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f8-b-5.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f8-b-6.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f8-b-7.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f8-b-8.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/f8-b-9.jpg"></a></li>
+    	<li><a href="javascript:;" class="last"><img src="images/f8-b-0.png"></a></li>
+    </ul>
+</div>
+<div class="page4">
+	<div class="title clearfix">
+    	<h2><span>9F</span>食品保健</h2>
+     <div class="nav">
+        	<ul>
+            	<li><a href="javascript:;">热门</a><span></span></li>
+            	<li><a href="javascript:;">粮油生鲜</a><span></span></li>
+            	<li><a href="javascript:;">饮料牛奶</a><span></span></li>
+            	<li><a href="javascript:;">休闲食品</a><span></span></li>
+            	<li><a href="javascript:;">顶级白酒</a><span></span></li>
+            	<li><a href="javascript:;">热销名酒</a><span></span></li>
+            	<li><a href="javascript:;">保健食品</a><span></span></li>
+            	<li><a href="javascript:;">营养滋补</a><span></span></li>
+            	<li><a href="javascript:;">保健器械</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="con clearfix">
+    	<div class="left loft-9">
+        	<div class="pic"><a href="javascript:;"><img src="images/f9-p-1.jpg"></a>
+            	<div class="fukuang kuang-9">
+                	<ul class="ul-9">
+                    	<li><a href="javascript:;">中外美食</a></li>
+                    	<li class="er"><a href="javascript:;">美味尝鲜</a></li>
+                    	<li class="san"><a href="javascript:;">中外名酒</a></li>
+                    	<li class="si"><a href="javascript:;">医药保健</a></li>
+                    </ul>
+                </div>
+            </div>
+            	<div class="loft-9-bot">
+                	<p>99元任选3瓶></p>
+                	<p>零食 领券满99-40></p>
+                	<a href="javascript:;">牛奶99-30</a>
+                	<a href="javascript:;">满199减100</a>
+                	<a href="javascript:;">血压计</a>
+                	<a href="javascript:;">每日每加</a>
+                	<a href="javascript:;">满99减50</a>
+                </div>
+        </div>
+        <div class="mid mid-9">
+			<ul class="ul-9-left">
+            	<li><a href="javascript:;"><img src="images/f9-p-2.jpg"></a></a></li>
+            	<li><a href="javascript:;"><img src="images/f9-p-3.jpg"></a></a></li>
+            </ul>
+			<ul class="ul-9-right">
+            	<li><a href="javascript:;"><img src="images/f9-p-4.jpg"></a></a></li>
+            	<li><a href="javascript:;"><img src="images/f9-p-5.jpg"></a></a></li>
+            </ul>
+        </div>
+        <div class="right clearfix rig-9">
+        	<ul>
+            	<li><a href="javascript:;"><img src="images/f9-p-6.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f9-p-7.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f9-p-8.png"></a></li>
+            	<li><a href="javascript:;"><img src="images/f9-p-9.jpg"></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="paizi">
+	<ul>
+    	<li><a href="javascript:;"><img src="images/f9-b-1.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/f9-b-2.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f9-b-3.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f9-b-4.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f9-b-5.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f9-b-7.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/f9-b-7.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f9-b-8.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f9-b-9.jpg"></a></li>
+    	<li><a href="javascript:;" class="last"><img src="images/f9-b-0.png"></a></li>
+    </ul>
+</div>
+<div class="advert">
+	<ul>
+    	<li><a href="javascript:;"><img src="images/f9-a-1.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f9-a-2.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f9-a-3.jpg"></a></li>
+    </ul>
+</div>
+<div class="page4">
+	<div class="title clearfix">
+    	<h2><span>10F</span>图书音像</h2>
+     <div class="nav">
+        	<ul>
+            	<li><a href="javascript:;">热门</a><span></span></li>
+            	<li><a href="javascript:;">少儿</a><span></span></li>
+            	<li><a href="javascript:;">教育科技</a><span></span></li>
+            	<li><a href="javascript:;">文学小说</a><span></span></li>
+            	<li><a href="javascript:;">人文社科</a><span></span></li>
+            	<li><a href="javascript:;">经管励志</a><span></span></li>
+            	<li><a href="javascript:;">生活艺术</a><span></span></li>
+            	<li><a href="javascript:;">音像产品</a><span></span></li>
+            	<li><a href="javascript:;">电子书</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="con clearfix">
+    	<div class="left loft-10">
+        	<div class="pic"><a href="javascript:;"><img src="images/f10-p-1.jpg"></a>
+            	<div class="fukuang kuang-10">
+                	<ul class="ul-10">
+                    	<li><a href="javascript:;">图书</a></li>
+                    	<li class="er"><a href="javascript:;">音像</a></li>
+                    	<li class="san"><a href="javascript:;">特色书店</a></li>
+                    	<li class="si"><a href="javascript:;">数字商品</a></li>
+                    </ul>
+                </div>
+            </div>
+            	<div class="loft-10-bot">
+                	<p>京东图书音像年终榜></p>
+                	<p>图书音像预售抢先看></p>
+                	<a href="javascript:;">教育</a>
+                	<a href="javascript:;">文学</a>
+                	<a href="javascript:;">少儿</a>
+                	<a href="javascript:;">经管</a>
+                	<a href="javascript:;">励志</a>
+                	<a href="javascript:;">人文社科</a>
+                	<a href="javascript:;">生活</a>
+                	<a href="javascript:;">艺术</a>
+                </div>
+        </div>
+        <div class="mid mid-10">
+			<ul class="ul-10-left">
+            	<li><a href="javascript:;"><img src="images/f10-p-2.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f10-p-3.jpg"></a></li>
+            </ul>
+            <div class="ul-10-right">
+			<div class="mid-10-shang"><a href="javascript:;"><img src="images/f10-p-4.jpg"></a></div>
+			<ul class="mid-10-xia clearfix">
+            	<li><a href="javascript:;"><img src="images/f10-p-5.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f10-p-6.jpg"></a></li>
+            </ul>
+            </div>
+        </div>
+        <div class="rig-10 clearfix">
+        	<h2>热门作者</h2>
+            <ul>
+            	<li>
+                	<div class="icon">
+                    	<div class="touxiang"><img src="images/f10-n-1.jpg"></div>
+                        <p>刘同</p>
+                    </div>
+                    <div class="book clearfix">
+                    	<div class="pic"><a href="javascript:;"><img src="images/f10-n-5.jpg"></a></div>
+                        <div class="text">
+                        	<h3><a href="javascript:;">向着光亮那方·谁的青春</a></h3>
+                            <div class="font">“刘同2016最新作品。”</div>
+                        </div>
+                    </div>
+                </li>
+            	<li>
+                	<div class="icon">
+                    	<div class="touxiang"><img src="images/f10-n-4.jpg"></div>
+                        <p>乐嘉</p>
+                    </div>
+                    <div class="book clearfix">
+                    	<div class="pic"><a href="javascript:;"><img src="images/f10-n-6.jpg"></a></div>
+                        <div class="text">
+                        	<h3><a href="javascript:;">乐嘉作品《淡淡》</a></h3>
+                            <div class="font">“一次蛋碎，淬痛成玉，一本前……”</div>
+                        </div>
+                    </div>
+                </li>
+            	<li>
+                	<div class="icon">
+                    	<div class="touxiang"><img src="images/f10-n-3.jpg"></div>
+                        <p>吴奇隆</p>
+                    </div>
+                    <div class="book clearfix">
+                    	<div class="pic"><a href="javascript:;"><img src="images/f10-n-7.jpg"></a></div>
+                        <div class="text">
+                        	<h3><a href="javascript:;">吴奇隆《旅程》</a></h3>
+                            <div class="font">“暌违多年，暖声回归。讲述独……”</div>
+                        </div>
+                    </div>
+                </li>
+            	<li>
+                	<div class="icon">
+                    	<div class="touxiang"><img src="images/f10-n-2.jpg"></div>
+                        <p>许嵩</p>
+                    </div>
+                    <div class="book clearfix">
+                    	<div class="pic"><a href="javascript:;"><img src="images/f10-n-8.jpg"></a></div>
+                        <div class="text">
+                        	<h3><a href="javascript:;">许嵩《青年晚报》</a></h3>
+                            <div class="font">“一个三十而立的青年敞开自己……。”</div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="paizi">
+	<ul>
+    	<li><a href="javascript:;"><img src="images/f10-b-1.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f10-b-2.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f10-b-3.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f10-b-4.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/f10-b-5.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/f10-b-6.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/f10-b-7.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f10-b-8.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f10-b-9.png"></a></li>
+    	<li><a href="javascript:;" class="last"><img src="images/f10-b-0.jpg"></a></li>
+    </ul>
+</div>
+<div class="page4">
+	<div class="title clearfix">
+    	<h2><span>11F</span>整车用品</h2>
+        <div class="nav">
+        	<ul>
+            	<li><a href="javascript:;">热门</a><span></span></li>
+            	<li><a href="javascript:;">低价购车</a><span></span></li>
+            	<li><a href="javascript:;">超值特惠</a><span></span></li>
+            	<li><a href="javascript:;">二手好车</a><span></span></li>
+            	<li><a href="javascript:;">车载电器</a><span></span></li>
+            	<li><a href="javascript:;">汽车保养</a><span></span></li>
+            	<li><a href="javascript:;">汽车配件</a><span></span></li>
+            	<li><a href="javascript:;">汽车装饰</a><span></span></li>
+            	<li><a href="javascript:;">汽车服务</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="con clearfix">
+    	<div class="left loft-11">
+        	<div class="pic"><a href="javascript:;"><img src="images/f11-p-1.jpg"></a>
+            	<div class="fukuang kuang-11">
+                	<ul class="ul-11">
+                    	<li><a href="javascript:;">全新整车</a></li>
+                    	<li class="er"><a href="javascript:;">保养中心</a></li>
+                    	<li class="san"><a href="javascript:;">汽车用品</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="list clearfix">
+            	<div class="list-1">
+                	<a href="javascript:;"><p>电器清仓低至一元></p></a>
+                	<a href="javascript:;"><p>安全自驾满200减100></p></a>
+                	<a href="javascript:;">车载电器</a>
+                	<a href="javascript:;">行车记录仪</a>
+                	<a href="javascript:;">维修养护</a>
+                	<a href="javascript:;">爆款机油</a>
+                	<a href="javascript:;">蓄电池</a>
+                	<a href="javascript:;">汽车服务</a>
+                	<a href="javascript:;">内饰精品</a>
+                	<a href="javascript:;">安全座椅</a>
+                </div>
+                <div class="list-2">
+                    <a href="javascript:;"><p>德国机油低至69.5></p></a>
+                	<a href="javascript:;"><p>海拉全场199-100></p></a>
+                    <a href="javascript:;">雨刷</a>
+                	<a href="javascript:;">油卡充值</a>
+                	<a href="javascript:;">轮胎超市</a>
+                	<a href="javascript:;">轮毂</a>
+                	<a href="javascript:;">洗车机</a>
+                	<a href="javascript:;">空调清洗机</a>
+                	<a href="javascript:;">汽车脚垫</a>
+                	<a href="javascript:;">车管家</a>
+                </div>
+            </div>
+        </div>
+        <div class="mid mid-11">
+        	<div class="pic-1"><a href="javascript:;"><img src="images/f11-p-2.jpg"></a></div>
+            <ul>
+            	<li><a href="javascript:;"><img src="images/f11-p-7.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f11-p-8.jpg"></a></li>
+            </ul>
+        </div>
+        <div class="right clearfix rig-11">
+        	<ul>
+            	<li><a href="javascript:;"><img src="images/f11-p-3.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f11-p-4.png"></a></li>
+            	<li><a href="javascript:;"><img src="images/f11-p-5.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f11-p-6.jpg"></a></li>
+            	<li class="gao"><a href="javascript:;"><img src="images/f11-p-9.jpg"></a></li>
+            	<li class="gao"><a href="javascript:;"><img src="images/f11-p-0.jpg"></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="paizi">
+	<ul>
+    	<li><a href="javascript:;"><img src="images/f11-b-1.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f11-b-2.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/f11-b-3.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f11-b-4.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f11-b-5.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f11-b-6.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f11-b-7.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f11-b-8.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f11-b-9.png"></a></li>
+    	<li><a href="javascript:;" class="last"><img src="images/f11-b-0.png"></a></li>
+    </ul>
+</div>
+<div class="page4">
+	<div class="title clearfix">
+    	<h2><span>12F</span>生活服务</h2>
+     <div class="nav">
+        	<ul>
+            	<li><a href="javascript:;">热门</a><span></span></li>
+            	<li><a href="javascript:;">粮油生鲜</a><span></span></li>
+            	<li><a href="javascript:;">饮料牛奶</a><span></span></li>
+            	<li><a href="javascript:;">休闲食品</a><span></span></li>
+            	<li><a href="javascript:;">顶级白酒</a><span></span></li>
+            	<li><a href="javascript:;">热销名酒</a><span></span></li>
+            	<li><a href="javascript:;">保健食品</a><span></span></li>
+            	<li><a href="javascript:;">营养滋补</a><span></span></li>
+            	<li><a href="javascript:;">保健器械</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="con clearfix">
+    	<div class="left loft-12">
+        	<div class="pic"><a href="javascript:;"><img src="images/f12-p-1.jpg"></a>
+            	<div class="fukuang kuang-12">
+                	<ul class="ul-12">
+                    	<li><a href="javascript:;">众筹频道</a></li>
+                    	<li class="er"><a href="javascript:;">理财频道</a></li>
+                    </ul>
+                </div>
+            </div>
+            	<div class="loft-12-bot">
+                	<p>100元红包召唤你></p>
+                	<p>买匡威 低至5元/期></p>
+                	<a href="javascript:;">抢豪礼</a>
+                	<a href="javascript:;">199减100</a>
+                	<a href="javascript:;">0元试用</a>
+                	<a href="javascript:;">做东家</a>
+                	<a href="javascript:;">1元购</a>
+                	<a href="javascript:;">1元抢</a>
+                </div>
+        </div>
+        <div class="mid mid-12">
+        	<div class="pic-1"><a href="javascript:;"><img src="images/f12-p-2.jpg"></a></div>
+            <ul>
+            	<li><a href="javascript:;"><img src="images/f12-p-3.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f12-p-4.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f12-p-5.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f12-p-6.jpg"></a></li>
+            </ul>
+        </div>
+        <div class="left loft-12">
+        	<div class="pic"><a href="javascript:;"><img src="images/f12-p-7.jpg"></a>
+            	<div class="fukuang kuang-12">
+                	<ul class="ul-12">
+                    	<li><a href="javascript:;">美妆特卖</a></li>
+                    	<li class="er"><a href="javascript:;">个户清洁</a></li>
+                    </ul>
+                </div>
+            </div>
+            	<div class="loft-12-bot">
+                	<p>出游妆必备低价秒杀></p>
+                	<p>洁净动力 满199减100></p>
+                	<a href="javascript:;">抢豪礼</a>
+                	<a href="javascript:;">199减100</a>
+                	<a href="javascript:;">0元试用</a>
+                	<a href="javascript:;">做东家</a>
+                	<a href="javascript:;">1元购</a>
+                	<a href="javascript:;">1元抢</a>
+                </div>
+        </div>
+        <div class="mid mid-12">
+        	<div class="pic-1"><a href="javascript:;"><img src="images/f12-p-8.jpg"></a></div>
+            <ul>
+            	<li><a href="javascript:;"><img src="images/f12-p-9.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f12-p-10.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f12-p-11.jpg"></a></li>
+            	<li><a href="javascript:;"><img src="images/f12-p-12.jpg"></a></li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+<div class="paizi">
+	<ul>
+    	<li><a href="javascript:;"><img src="images/f12-b-1.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f12-b-2.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f12-b-3.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f12-b-4.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f12-b-5.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f12-b-6.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/f12-b-7.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/f12-b-8.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/f12-b-9.png"></a></li>
+    	<li><a href="javascript:;" class="last"><img src="images/f12-b-10.png"></a></li>
+    </ul>
+</div>
+<div class="youhui clearfix">
+    <div class="dijia">
+        <h2>天天低价</h2>
+            <ul class="clearfix">
+                <li class="first"><a href="javascript:;"><div class="pic"><img src="images/e-1.jpg"></div><p>暴风魔镜 小D 虚拟现实智能VR眼镜</p></a><h4>￥79.00</h4></li>
+                <li class="clearfix"><div class="pic"><a href="javascript:;"><img src="images/e-2.jpg"></a></div><a href="javascript:;"><p>阿美娜2016秋冬季新款韩版 学院风蝴</p></a><h4>￥188.00</h4></li>
+                <li class="clearfix"><div class="pic"><a href="javascript:;"><img src="images/e-3.jpg"></a></div><a href="javascript:;"><p>阿美娜2016秋冬季新款韩版 学院风蝴</p></a><h4>￥188.00</h4></li>
+                <li class="clearfix"><div class="pic"><a href="javascript:;"><img src="images/e-4.jpg"></a></div><a href="javascript:;"><p>阿美娜2016秋冬季新款韩版 学院风蝴</p></a><h4>￥188.00</h4></li>
+                <li class="clearfix"><div class="pic"><a href="javascript:;"><img src="images/e-5.jpg"></a></div><a href="javascript:;"><p>阿美娜2016秋冬季新款韩版 学院风蝴</p></a><h4>￥188.00</h4></li>
+                <li class="clearfix"><div class="pic"><a href="javascript:;"><img src="images/e-8_07.jpg"></a></div><a href="javascript:;"><p>阿美娜2016秋冬季新款韩版 学院风蝴</p></a><h4>￥188.00</h4></li>
+                <li class="clearfix"><div class="pic"><a href="javascript:;"><img src="images/e-7.jpg"></a></div><a href="javascript:;"><p>阿美娜2016秋冬季新款韩版 学院风蝴</p></a><h4>￥188.00</h4></li>
+            </ul>
+    </div>
+    <div class="shaidan">
+    	<h2>热门晒单</h2>
+    	<div class="gun">
+        	<ul>
+            	<li>
+                	<div class="pic"><img src="images/c-lunbo-2.jpg"></div>
+                    <div class="text">
+                    	<div class="gun-t">
+                        	<div class="icon"><img src="images/h-3.jpg"></div>
+                            <h4>D***O</h4>
+                        </div>
+                        <div class="gun-zi">“昨天刚收到,给卖家一万个赞”</div>
+                    </div>
+                </li>
+            	<li>
+                	<div class="pic"><img src="images/c-lunbo-1.jpg"></div>
+                    <div class="text">
+                    	<div class="gun-t">
+                        	<div class="icon"><img src="images/c-lunbo-2.1.jpg"></div>
+                            <h4>U***ADO</h4>
+                        </div>
+                        <div class="gun-zi">“老板的人太赞，不仅免费送货”</div>
+                    </div>
+                </li>
+            	<li>
+                	<div class="pic"><img src="images/e-3.jpg"></div>
+                    <div class="text">
+                    	<div class="gun-t">
+                        	<div class="icon"><img src="images/c-lunbo-1.1.jpg"></div>
+                            <h4>Q***SSE</h4>
+                        </div>
+                        <div class="gun-zi">“没有买过这么性价比高的衣服”</div>
+                    </div>
+                </li>
+                <li>
+                	<div class="pic"><img src="images/c-lunbo-2.jpg"></div>
+                    <div class="text">
+                    	<div class="gun-t">
+                        	<div class="icon"><img src="images/h-3.jpg"></div>
+                            <h4>D***O</h4>
+                        </div>
+                        <div class="gun-zi">“昨天刚收到,给卖家一万个赞”</div>
+                    </div>
+                </li>
+                <li>
+                	<div class="pic"><img src="images/c-lunbo-1.jpg"></div>
+                    <div class="text">
+                    	<div class="gun-t">
+                        	<div class="icon"><img src="images/c-lunbo-2.1.jpg"></div>
+                            <h4>U***ADO</h4>
+                        </div>
+                        <div class="gun-zi">“老板的人太赞，不仅免费送货”</div>
+                    </div>
+                </li>
+                            	<li>
+                	<div class="pic"><img src="images/e-3.jpg"></div>
+                    <div class="text">
+                    	<div class="gun-t">
+                        	<div class="icon"><img src="images/c-lunbo-1.1.jpg"></div>
+                            <h4>Q***SSE</h4>
+                        </div>
+                        <div class="gun-zi">“没有买过这么性价比高的衣服”</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="bot-tit">
+	<ul>
+    	<li></li>
+    	<li class="er"></li>
+    	<li class="san"></li>
+    	<li class="si"></li>
+    </ul>
+</div>
+<div class="list">
+	<dl>
+        <dt>购物指南</dt>
+        <dd><a href="javascript:;">购物流程</a></dd>
+        <dd><a href="javascript:;">会员介绍</a></dd>
+        <dd><a href="javascript:;">生活旅行/团购</a></dd>
+        <dd><a href="javascript:;">常见问题</a></dd>
+        <dd><a href="javascript:;">大家电</a></dd>
+        <dd><a href="javascript:;">联系客服</a></dd>
+    </dl>
+	<dl>
+       <dt>配送方式</dt>
+       <dd><a href="javascript:;">上门自提</a></dd>
+       <dd><a href="javascript:;">211限时达</a></dd>
+       <dd><a href="javascript:;">配送服务查询</a></dd>
+       <dd><a href="javascript:;">配送费收取标准</a></dd>
+       <dd><a href="javascript:;">海外配送</a></dd>
+   </dl>
+	<dl>
+       <dt>配送方式</dt>
+       <dd><a href="javascript:;">上门自提</a></dd>
+       <dd><a href="javascript:;">211限时达</a></dd>
+       <dd><a href="javascript:;">配送服务查询</a></dd>
+       <dd><a href="javascript:;">配送费收取标准</a></dd>
+       <dd><a href="javascript:;">海外配送</a></dd>
+   </dl>
+	<dl>
+       <dt>配送方式</dt>
+       <dd><a href="javascript:;">上门自提</a></dd>
+       <dd><a href="javascript:;">211限时达</a></dd>
+       <dd><a href="javascript:;">配送服务查询</a></dd>
+       <dd><a href="javascript:;">配送费收取标准</a></dd>
+       <dd><a href="javascript:;">海外配送</a></dd>
+   </dl>
+   	<dl>
+        <dt>购物指南</dt>
+        <dd><a href="javascript:;">购物流程</a></dd>
+        <dd><a href="javascript:;">会员介绍</a></dd>
+        <dd><a href="javascript:;">生活旅行/团购</a></dd>
+        <dd><a href="javascript:;">常见问题</a></dd>
+        <dd><a href="javascript:;">大家电</a></dd>
+        <dd><a href="javascript:;">联系客服</a></dd>
+    </dl>
+    <div class="place">
+        	<h5>京东自营覆盖区县 </h5>
+            <p>京东已向全国2654个区县提供自营配送服务，支持货到付款、POS机刷卡和售后上门服务。</p>
+            <a href="javascript:;">查看详情<span>></span></a>
+        </div>
+</div>
+<div class="footer">
+	<ul class="clearfix">
+    	<li><a href="javascript:;">关于我们</a><span>|</span></li>
+    	<li><a href="javascript:;">联系我们</a><span>|</span></li>
+    	<li><a href="javascript:;">联系客服</a><span>|</span></li>
+    	<li><a href="javascript:;">商家入驻</a><span>|</span></li>
+    	<li><a href="javascript:;">营销中心</a><span>|</span></li>
+    	<li><a href="javascript:;">手机京东</a><span>|</span></li>
+    	<li><a href="javascript:;">友情链接</a><span>|</span></li>
+    	<li><a href="javascript:;">销售联盟</a><span>|</span></li>
+    	<li><a href="javascript:;">京东社区</a><span>|</span></li>
+    	<li><a href="javascript:;">风险监测</a><span>|</span></li>
+    	<li><a href="javascript:;">京东公益</a><span>|</span></li>
+    	<li><a href="javascript:;">English Site</a><span>|</span></li>
+    	<li><a href="javascript:;">Contact Us</a></li>
+    </ul>
+    <div class="beian">
+    	<a href="javascript:;"><img src="images/footer-1.png">京公网安备 11000002000088号</a>
+        <span>|</span>
+        <a href="javascript:;">京ICP证070359号</a>
+        <span>|</span>
+        <a href="javascript:;">互联网药品信息服务资格证编号(京)-经营性-2014-0008</a>
+        <span>|</span>
+        <a href="javascript:;">新出发京零 字第大120007号</a>
+        <br/>
+        <a href="javascript:;">互联网出版许可证编号新出网证(京)字150号</a>
+        <span>|</span>
+        <a href="javascript:;">出版物经营许可证</a>
+        <span>|</span>
+        <a href="javascript:;">网络文化经营许可证京网文[2014]2148-348号</a>
+        <span>|</span>
+        违法和不良信息举报电话：4006561155
+        <br/>
+        Copyright © 2004 - 2016 京东JD.com 版权所有
+        <span>|</span>
+        消费者维权热线：4006067733
+        <br/>
+        京东旗下网站：<a href="javascript:;">京东钱包</a>
+    </div>
+    <ul class="cx">
+    	<li><a href="javascript:;"><img src="images/footer-2.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/footer-3.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/footer-3.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/footer-4.png"></a></li>
+    	<li><a href="javascript:;"><img src="images/footer-5.jpg"></a></li>
+    	<li><a href="javascript:;"><img src="images/footer-6.jpg"></a></li>
+    </ul>
+</div>
+</body>
+</html>

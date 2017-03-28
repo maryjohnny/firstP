@@ -1,0 +1,17 @@
+/*css reset*/
+*{margin:0;padding:0}
+body{background: url(../images/bg-image.jpg) no-repeat;background-size:cover;}
+#calendar{width:210px;overflow:hidden;border:1px solid #000; padding:20px;margin:100px 0 0 1300px;}
+#title{ text-align:center; margin-bottom:10px}
+#calendar a{color:#000;font-size:16px;font-weight:bolder;text-decoration:none;font-family:'微软雅黑';}
+#next{float:right;}
+#calendar .name li .a1{ position:absolute;top:0;left:0;}
+#calendar .name li .a2{ position:absolute;top:0;right:0;}
+#calendar .week{height:30px; line-height:20px;border-bottom:1px solid #000; margin-bottom:10px}
+#calendar .week li{ float:left;width:30px;height:30px; text-align:center; list-style:none;}
+#calendar .dateUl{ overflow:hidden; clear:both}
+#calendar .dateUl li{float:left;width:30px;height:30px; text-align:center; line-height:30px;list-style:none;}
+
+#calendar .dateUl li.ccc{ color:#ccc;}
+#calendar .dateUl li.today{ background:#F90; color:#fff;}
+#calendar .dateUl li.sun{ color:#f00;}
